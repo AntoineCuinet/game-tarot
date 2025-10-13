@@ -2,15 +2,36 @@
 
 A new Flutter project.
 
-## Getting Started
+## Logique MVMM 
 
-This project is a starting point for a Flutter application.
+Séparation des rôles :
 
-A few resources to get you started if this is your first Flutter project:
+Couche	Rôle
+Model	Contient les données (cartes, joueurs, état du jeu)
+ViewModel	Gère la logique métier (distribuer les cartes, jouer un tour, calculer les scores)
+View	Interface utilisateur (widgets, pages Flutter)
+Provider	Sert d’intermédiaire entre View et ViewModel (notifie la vue quand les données changent)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Structure
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+lib/
+│
+├── main.dart
+│
+├── models/
+│   ├── card_model.dart
+│   ├── player_model.dart
+│   └── game_model.dart
+│
+├── viewmodels/
+│   └── game_view_model.dart
+│
+├── views/
+│   ├── home_page.dart
+│   └── game_page.dart
+│
+├── providers/
+│   └── game_provider.dart
+│
+└── widgets/
+    └── common_button.dart
