@@ -1,0 +1,93 @@
+# Flutter/Dart/Pub related
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+android/app/debug
+android/app/profile
+android/app/release
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Visual Studio Code related
+.vscode/
+.history/
+
+# Android related
+local.properties
+.gradle/
+**/gradle-wrapper.jar
+**/gradle-wrapper.properties
+**/gradlew
+**/gradlew.bat
+**/gradle/
+**/captures/
+**/.cxx/
+**/output.json
+*.apk
+*.aar
+*.ap_
+*.dex
+*.class
+*.log
+
+# iOS/macOS related
+**/Pods/
+**/Podfile.lock
+**/pubspec.lock
+**/DerivedData/
+*.xcuserstate
+*.xcworkspace
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Windows related
+windows/flutter/ephemeral/
+windows/runner/Debug/
+windows/runner/Release/
+
+# Linux related
+linux/flutter/ephemeral/
+linux/build/
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Others
+*.tmp
+*.temp
+*.swp
+*.lock
+*.bak
+*.old
+*.orig
+
+# Firebase/Secrets (be careful!)
+*.keystore
+*.jks
+*.p12
+*.key
+*.pem
+*.crt
+google-services.json
+GoogleService-Info.plist
+firebase_app_id_file.json
+.env
+
+# IOS
+.DS_Store
