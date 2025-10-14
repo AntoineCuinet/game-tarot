@@ -1,5 +1,5 @@
 class PlayerModel {
-  final String id;
+  final int id;
   final String name;
   int score;
   bool isDealer;

@@ -13,7 +13,7 @@ class GameProvider extends ChangeNotifier {
         notifyListeners();
     }
 
-    void setDealer(String playerId) {
+    void setDealer(int playerId) {
         _viewModel.setDealer(playerId);
         notifyListeners();
     }

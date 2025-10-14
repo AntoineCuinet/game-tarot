@@ -5,20 +5,23 @@ import '../models/player_model.dart';
 class GameViewModel  {
   final GameModel _game = GameModel();
   List<PlayerModel> get players => List.unmodifiable(_game.players);
+  int _id = 0;
 
   void addPlayer(String name) {
     final player = PlayerModel(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      id: _id++,
       name: name,
     );
     _game.addPlayer(player);
   }
 
-  void setDealer(String playerId) => _game.setDealer(playerId);
+  void setDealer(int playerId) => _game.setDealer(playerId);
 
   void startNewGame() {
-    /* distribue les cartes, initialise les scores */
-    print('La partie commence avec ${_game.players.length} joueurs');
+    _game.chooseRandomDealer();
+
+    // TODO: distribue les cartes, initialise les scores
   }
+
   void playTurn() { /* logique d’un tour */ }
 }

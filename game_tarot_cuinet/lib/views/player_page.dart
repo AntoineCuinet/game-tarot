@@ -33,7 +33,6 @@ class _PlayerPageState extends State<PlayerPage> {
       for (var i = 1; i <= missing; i++) {
         provider.addPlayer('Bot $i');
       }
-
       _nameController.clear();
 
       // Start the game
@@ -130,7 +129,7 @@ class _PlayerPageState extends State<PlayerPage> {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
         decoration: BoxDecoration(
           color: isSelected
-              ? Theme.of(context).colorScheme.primary.withOpacity(0.15)
+              ? Theme.of(context).colorScheme.primary.withValues()
               : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
