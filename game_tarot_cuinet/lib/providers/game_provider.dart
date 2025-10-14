@@ -1,19 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../viewmodels/game_view_model.dart';
+import '../models/player_model.dart';
 
 class GameProvider extends ChangeNotifier {
-    int _score = 0;
+    final GameViewModel _viewModel = GameViewModel();
 
-    int get score => _score;
+    List<PlayerModel> get players => _viewModel.players;
 
-    void incrementScore() {
-        _score++;
-        notifyListeners(); // Notifie les widgets du changement
+    void addPlayer(String name) {
+        _viewModel.addPlayer(name);
+        notifyListeners();
     }
 
-    // TODO: vrai implem
-    final GameViewModel _viewModel = GameViewModel();
+    void setDealer(String playerId) {
+        _viewModel.setDealer(playerId);
+        notifyListeners();
+    }
 
     void startGame() {
         _viewModel.startNewGame();

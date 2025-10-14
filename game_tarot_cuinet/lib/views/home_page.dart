@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'player_page.dart';
 import '../providers/game_provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,13 +26,16 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/CaJ-TaroTv1-1AT.png'),
-            const SizedBox(height: 24),
-            Text('Score : ${gameProvider.score}', style: const TextStyle(fontSize: 20)),
-            const SizedBox(height: 16),
+            Text("Bienvenu sur votre jeu de tarot africain !"),
             ElevatedButton(
-              onPressed: gameProvider.incrementScore,
-              child: const Text('Jouer un coup'),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (context) => PlayerPage(),
+                  ),
+                );
+              },
+              child: const Text('JOUER ->'),
             ),
           ],
         ),
