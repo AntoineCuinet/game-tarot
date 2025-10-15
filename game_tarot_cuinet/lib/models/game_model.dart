@@ -2,45 +2,45 @@ import 'dart:math';
 import 'player_model.dart';
 
 class GameModel {
-  final List<PlayerModel> players;
+  final List<PlayerModel> _players;
 
-  GameModel({List<PlayerModel>? players}) : players = players ?? [];
+  GameModel({List<PlayerModel>? players}) : _players = players ?? [];
+
+  List<PlayerModel> get players => List.unmodifiable(_players);
+
+  int get playerCount => _players.length;
+
+  PlayerModel get dealer => _players.firstWhere((p) => p.isDealer, orElse: () => throw Exception('Aucun dealer défini'));
 
   void addPlayer(PlayerModel player) {
-    players.add(player);
+    _players.add(player);
   }
 
   void setDealer(int playerId) {
-    for (var p in players) {
+    for (var p in _players) {
       p.isDealer = (p.id == playerId);
     }
   }
 
   void chooseRandomDealer() {
-    if (players.isEmpty) return;
+    if (_players.isEmpty) return;
 
     // Random whith 0 and players.length - 1
-    final randomIndex = Random().nextInt(players.length);
-    final selectedPlayer = players[randomIndex];
+    final randomIndex = Random().nextInt(_players.length);
+    final selectedPlayer = _players[randomIndex];
 
     setDealer(selectedPlayer.id);
   }
 
   void nextDealer() {
-    if (players.isEmpty) return;
+    if (_players.isEmpty) return;
 
-    int currentIndex = players.indexWhere((p) => p.isDealer);
+    final currentIndex = _players.indexWhere((p) => p.isDealer);
     if (currentIndex != -1) {
-      players[currentIndex].isDealer = false;
+      _players[currentIndex].isDealer = false;
     }
 
-    int nextIndex;
-    if (currentIndex == -1 || currentIndex == players.length - 1) {
-      nextIndex = 0;
-    } else {
-      nextIndex = currentIndex + 1;
-    }
-
-    players[nextIndex].isDealer = true;
+    final nextIndex = (currentIndex + 1) % _players.length;
+    _players[nextIndex].isDealer = true;
   }
 }

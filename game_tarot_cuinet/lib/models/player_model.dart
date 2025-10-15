@@ -1,15 +1,16 @@
 class PlayerModel {
-  final int id;
-  final String name;
-  int score;
+  final int _id;
+  final String _name;
+  int _score;
   bool isDealer;
 
-  PlayerModel({required this.id, required this.name, this.score = 0, this.isDealer = false,});
+  PlayerModel({required int id, required String name, int score = 0, this.isDealer = false}): _id = id, _name = name, _score = score;
+
+  int get id => _id;
+  String get name => _name;
+  int get score => _score;
 
   void addScore(int points) {
-    score += points;
+    _score += points;
   }
-
-  @override
-  String toString() => 'Player($name, score: $score)';
 }
