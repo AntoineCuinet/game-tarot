@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
+import '../models/player_model.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
@@ -21,47 +22,71 @@ class _GamePageState extends State<GamePage> {
         title: const Text('Tarot africain'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
+      body: Container(
+        color: Colors.green[800],
+        child: Stack(
+          alignment: Alignment.center,
           children: [
-            Image.asset('assets/CaJ-TaroTv1-1AT.png'),
-            const SizedBox(height: 20),
-            Text(
-              'Nombre de joueurs : ${players.length}',
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            // Joueur du bas (principal)
+            Positioned(
+              bottom: 20,
+              child: buildPlayer(players[0]),
             ),
 
-            const SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: players.length,
-                itemBuilder: (context, index) {
-                  final player = players[index];
-                  final isDealer = player.isDealer;
+            // Joueur de gauche
+            Positioned(
+              left: 20,
+              child: buildPlayer(players[1], isVertical: true),
+            ),
 
-                  return Card(
-                    margin: const EdgeInsets.symmetric(vertical: 6),
-                    child: ListTile(
-                      leading: Icon(
-                        isDealer ? Icons.star : Icons.person,
-                        color: isDealer ? Colors.amber : Colors.grey,
-                      ),
-                      title: Text(
-                        player.name,
-                        style: TextStyle(
-                          fontWeight: isDealer ? FontWeight.bold : FontWeight.normal,
-                        ),
-                      ),
-                      subtitle: isDealer ? const Text('Donneur') : const Text('Receveur'),
-                    ),
-                  );
-                },
+            // Joueur du haut
+            if (players.length > 3)
+              Positioned(
+                top: 20,
+                child: buildPlayer(players[2]),
+              )
+            else
+              Positioned(
+                right: 20,
+                child: buildPlayer(players[2], isVertical: true),
               ),
-            ),
-          ]
+
+            // Joueur de droite
+            if (players.length > 3)
+              Positioned(
+                right: 20,
+                child: buildPlayer(players[3], isVertical: true),
+              ),
+          ],
         ),
+        //Image.asset('assets/CaJ-TaroTv1-1AT.png'),
       ),
+    );
+  }
+
+
+  Widget buildPlayer(PlayerModel player, {bool isVertical = false}) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(
+          player.isDealer ? Icons.star : Icons.person,
+          color: player.isDealer ? Colors.amber : Colors.grey,
+          size: 30,
+        ),
+        const SizedBox(height: 4),
+        RotatedBox(
+          quarterTurns: isVertical ? 3 : 0,
+          child: Text(
+            player.name,
+            style: TextStyle(
+              fontWeight:
+              player.isDealer ? FontWeight.bold : FontWeight.normal,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

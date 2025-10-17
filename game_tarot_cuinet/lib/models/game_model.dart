@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'player_model.dart';
+import 'deck_model.dart';
 
 class GameModel {
   final List<PlayerModel> _players;

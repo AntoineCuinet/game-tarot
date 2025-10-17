@@ -19,7 +19,7 @@ class GameViewModel  {
   void startNewGame() {
     _game.chooseRandomDealer();
 
-    // TODO: distribue les cartes, initialise les scores
+    // TODO: distribue les cartes
   }
 
   void playTurn() { /* logique d’un tour */ }
