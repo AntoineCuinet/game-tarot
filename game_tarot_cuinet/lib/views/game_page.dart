@@ -16,6 +16,8 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     final provider = context.watch<GameProvider>();
     final players = provider.players;
+    final deck = provider.deck;
+    final cardNames = deck.getAllCardNames();
 
     return Scaffold(
       appBar: AppBar(
@@ -28,6 +30,13 @@ class _GamePageState extends State<GamePage> {
           alignment: Alignment.center,
           children: [
             // Joueur du bas (principal)
+            Positioned(
+              bottom: 80,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: cardNames.map((name) => Text(name)).toList(),
+              ),
+            ),
             Positioned(
               bottom: 20,
               child: buildPlayer(players[0]),
@@ -57,6 +66,18 @@ class _GamePageState extends State<GamePage> {
                 right: 20,
                 child: buildPlayer(players[3], isVertical: true),
               ),
+
+            //Wrap(
+            //  spacing: 4, // Espacement entre les cartes
+            //  runSpacing: 4, // Espacement entre les lignes de cartes
+            //  children: deck.deck.map((card) {
+            //    return Image.asset(
+            //      card.assetPath,
+            //      width: 50, // Largeur des cartes
+            //      height: 80, // Hauteur des cartes
+            //    );
+            //  }).toList(),
+            //),
           ],
         ),
         //Image.asset('assets/CaJ-TaroTv1-1AT.png'),
@@ -74,18 +95,23 @@ class _GamePageState extends State<GamePage> {
           color: player.isDealer ? Colors.amber : Colors.grey,
           size: 30,
         ),
+        Text(
+          player.name,
+          style: TextStyle(
+            fontWeight:
+            player.isDealer ? FontWeight.bold : FontWeight.normal,
+            color: Colors.white,
+          ),
+        ),
         const SizedBox(height: 4),
         RotatedBox(
           quarterTurns: isVertical ? 3 : 0,
           child: Text(
-            player.name,
-            style: TextStyle(
-              fontWeight:
-              player.isDealer ? FontWeight.bold : FontWeight.normal,
-              color: Colors.white,
-            ),
-          ),
+            player.ordinaryCards.first.name,
+            style: const TextStyle(color: Colors.white),
+          )
         ),
+        const SizedBox(height: 8),
       ],
     );
   }
