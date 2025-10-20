@@ -15,8 +15,6 @@ class App extends StatelessWidget {
     onPrimary: Colors.white,
     secondary: Color(0xFF165D31),
     onSecondary: Colors.white,
-    tertiary: Color(0xFF262626),
-    onTertiary: Colors.white,
     error: Color(0xFFB00020),
     onError: Colors.white,
     surface: Colors.white,
@@ -25,15 +23,13 @@ class App extends StatelessWidget {
 
   final ColorScheme darkColorScheme = const ColorScheme(
     brightness: Brightness.dark,
-    primary: Color(0xFF4B362D),
+    primary: Color(0xFF165D31),
     onPrimary: Colors.white,
-    secondary: Color(0xFF262626),
+    secondary: Color(0xFF4B362D),
     onSecondary: Colors.white,
-    tertiary: Color(0xFF262626),
-    onTertiary: Colors.white,
     error: Color(0xFFB00020),
     onError: Colors.white,
-    surface: Colors.black,
+    surface: Color(0xFF262626),
     onSurface: Colors.white,
   );
 

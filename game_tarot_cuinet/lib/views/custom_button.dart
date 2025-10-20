@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.borderRadius = 12,
-    this.padding = const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+    this.padding = const EdgeInsets.symmetric(vertical: 15, horizontal: 24),
   });
 
   @override
@@ -37,7 +37,7 @@ class CustomButton extends StatelessWidget {
         text,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 16,
+          fontSize: 18,
           letterSpacing: 1.2,
         ),
       ),

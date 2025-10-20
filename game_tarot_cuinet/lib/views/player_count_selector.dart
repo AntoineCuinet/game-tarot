@@ -20,19 +20,17 @@ class PlayerCountSelector extends StatelessWidget {
       onTap: () => onSelected(count),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 24),
         decoration: BoxDecoration(
-          color: isSelected
-              ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.7)
-              : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected
-                ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.7)
+                ? Theme.of(context).colorScheme.primary
                 : Colors.grey.shade400,
             width: 2,
           ),
         ),
+
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -40,17 +38,17 @@ class PlayerCountSelector extends StatelessWidget {
               isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
               color: isSelected
                   ? Theme.of(context).colorScheme.primary
-                  : Colors.grey,
+                  : Colors.grey.shade400,
             ),
             const SizedBox(width: 8),
             Text(
               '$count joueurs',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 color: isSelected
                     ? Theme.of(context).colorScheme.primary
-                    : Colors.black87,
+                    : Colors.grey.shade800,
               ),
             ),
           ],

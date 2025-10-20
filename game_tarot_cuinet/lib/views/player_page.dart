@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
 import 'game_page.dart';
 import 'player_count_selector.dart';
+import 'custom_button.dart';
 
 class PlayerPage extends StatefulWidget {
   const PlayerPage({super.key});
@@ -14,8 +15,6 @@ class PlayerPage extends StatefulWidget {
 class _PlayerPageState extends State<PlayerPage> {
   final TextEditingController _nameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  // By default
   int _selectedPlayerCount = 3;
 
   @override
@@ -67,19 +66,19 @@ class _PlayerPageState extends State<PlayerPage> {
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(30),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
 
-              // Number of players choces
+              // Number of players choice
               const Text(
                 'Nombre de joueurs :',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -104,14 +103,43 @@ class _PlayerPageState extends State<PlayerPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 50),
 
-              // Pseudo
+              // Pseudo choice
+              const Text(
+                'Votre pseudo :',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Votre pseudo',
-                  border: OutlineInputBorder(),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                decoration: InputDecoration(
+                  labelText: 'Entrer votre pseudo',
+                  labelStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2.0,
+                    ),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -123,64 +151,14 @@ class _PlayerPageState extends State<PlayerPage> {
                   return null; // OK
                 },
               ),
-              const SizedBox(height: 10),
-              ElevatedButton(
+              const SizedBox(height: 50),
+
+              CustomButton(
+                text: 'Commencer la partie !',
                 onPressed: _validateForm,
-                child: const Text('Commencer la partie !'),
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-
-  Widget _buildPlayerCountSelector(int count) {
-    final bool isSelected = _selectedPlayerCount == count;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedPlayerCount = count;
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? Theme.of(context).colorScheme.primary.withValues()
-              : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isSelected
-                ? Theme.of(context).colorScheme.primary
-                : Colors.grey.shade400,
-            width: 2,
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primary
-                  : Colors.grey,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              '$count joueurs',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected
-                    ? Theme.of(context).colorScheme.primary
-                    : Colors.black87,
-              ),
-            ),
-          ],
         ),
       ),
     );

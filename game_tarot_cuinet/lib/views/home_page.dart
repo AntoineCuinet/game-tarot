@@ -27,12 +27,12 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Bienvenu sur votre jeu de tarot africain !",
+              'Bienvenu sur votre jeu de tarot africain !',
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30),
             CustomButton(
-              text: "JOUER ->",
+              text: 'JOUER ->',
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
