@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'card_model.dart';
 
 class PlayerModel {
@@ -5,6 +7,7 @@ class PlayerModel {
   final String _name;
   final Suit _suit;
   bool isDealer;
+  bool isBot;
 
   final List<CardModel> _ordinaryCards = [];
   final List<CardModel> _hand = [];
@@ -12,7 +15,7 @@ class PlayerModel {
   int? announcedTricks;
   int wonTricks = 0;
 
-  PlayerModel({required int id, required String name, required Suit suit, this.isDealer = false}):
+  PlayerModel({required int id, required String name, required Suit suit, this.isDealer = false, this.isBot = true}):
         _id = id,
         _name = name,
         _suit = suit {_generateOrdinaryCards();}
@@ -29,7 +32,7 @@ class PlayerModel {
   void winTrick() => wonTricks++;
 
   void adjustPoints() {
-    final diff = (wonTricks - announcedTricks!);
+    final diff = (wonTricks - announcedTricks!).abs();
     removePoints(diff);
   }
 
@@ -37,6 +40,27 @@ class PlayerModel {
     for (int i = 0; i < points && _ordinaryCards.isNotEmpty; i++) {
       _ordinaryCards.removeLast();
     }
+  }
+
+  void receiveCards(List<CardModel> cards) {
+    _hand.clear();
+    _hand.addAll(cards);
+  }
+
+  CardModel playRandomCard() {
+    final index = Random().nextInt(_hand.length);
+    return _hand.removeAt(index);
+  }
+
+  CardModel playCard(CardModel card) {
+    if (!_hand.contains(card)) throw Exception("Carte non trouvée !");
+    _hand.remove(card);
+    return card;
+  }
+
+  void resetTrickStats() {
+    wonTricks = 0;
+    announcedTricks = null;
   }
 
   void _generateOrdinaryCards() {

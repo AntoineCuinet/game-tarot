@@ -16,13 +16,15 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     final provider = context.watch<GameProvider>();
     final players = provider.players;
-    final deck = provider.deck;
-    final cardNames = deck.getAllCardNames();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tarot africain'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        automaticallyImplyLeading: false,
+        title: Text(
+            'Tarot africain',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondary),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
       body: Container(
         color: Colors.green[800],
@@ -31,20 +33,14 @@ class _GamePageState extends State<GamePage> {
           children: [
             // Joueur du bas (principal)
             Positioned(
-              bottom: 80,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: cardNames.map((name) => Text(name)).toList(),
-              ),
-            ),
-            Positioned(
-              bottom: 20,
+              bottom: 50,
               child: buildPlayer(players[0]),
             ),
 
             // Joueur de gauche
             Positioned(
               left: 20,
+              top: MediaQuery.of(context).size.height * 0.25,
               child: buildPlayer(players[1], isVertical: true),
             ),
 
@@ -57,6 +53,7 @@ class _GamePageState extends State<GamePage> {
             else
               Positioned(
                 right: 20,
+                top: MediaQuery.of(context).size.height * 0.25,
                 child: buildPlayer(players[2], isVertical: true),
               ),
 
@@ -64,23 +61,11 @@ class _GamePageState extends State<GamePage> {
             if (players.length > 3)
               Positioned(
                 right: 20,
+                top: MediaQuery.of(context).size.height * 0.25,
                 child: buildPlayer(players[3], isVertical: true),
               ),
-
-            //Wrap(
-            //  spacing: 4, // Espacement entre les cartes
-            //  runSpacing: 4, // Espacement entre les lignes de cartes
-            //  children: deck.deck.map((card) {
-            //    return Image.asset(
-            //      card.assetPath,
-            //      width: 50, // Largeur des cartes
-            //      height: 80, // Hauteur des cartes
-            //    );
-            //  }).toList(),
-            //),
           ],
         ),
-        //Image.asset('assets/CaJ-TaroTv1-1AT.png'),
       ),
     );
   }
@@ -106,12 +91,20 @@ class _GamePageState extends State<GamePage> {
         const SizedBox(height: 4),
         RotatedBox(
           quarterTurns: isVertical ? 3 : 0,
-          child: Text(
-            player.ordinaryCards.first.name,
-            style: const TextStyle(color: Colors.white),
-          )
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  player.ordinaryCards.first.name,
+                ),
+                Wrap(
+                  children: player.hand.map((card) {
+                    return Image.asset(card.assetPath, width: 60, height: 100);
+                  }).toList(),
+                ),
+              ]
+            )
         ),
-        const SizedBox(height: 8),
       ],
     );
   }

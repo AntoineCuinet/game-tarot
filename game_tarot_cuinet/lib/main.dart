@@ -9,6 +9,33 @@ void main() {
 
 class App extends StatelessWidget {
   const App({super.key});
+  final ColorScheme lightColorScheme = const ColorScheme(
+    brightness: Brightness.light,
+    primary: Color(0xFF4B362D),
+    onPrimary: Colors.white,
+    secondary: Color(0xFF165D31),
+    onSecondary: Colors.white,
+    tertiary: Color(0xFF262626),
+    onTertiary: Colors.white,
+    error: Color(0xFFB00020),
+    onError: Colors.white,
+    surface: Colors.white,
+    onSurface: Colors.black,
+  );
+
+  final ColorScheme darkColorScheme = const ColorScheme(
+    brightness: Brightness.dark,
+    primary: Color(0xFF4B362D),
+    onPrimary: Colors.white,
+    secondary: Color(0xFF262626),
+    onSecondary: Colors.white,
+    tertiary: Color(0xFF262626),
+    onTertiary: Colors.white,
+    error: Color(0xFFB00020),
+    onError: Colors.white,
+    surface: Colors.black,
+    onSurface: Colors.white,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +43,16 @@ class App extends StatelessWidget {
       create: (_) => GameProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Projet Développement Mobile',
+        title: 'Projet De Développement Mobile',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          colorScheme: lightColorScheme,
           useMaterial3: true,
         ),
+        darkTheme: ThemeData(
+          colorScheme: darkColorScheme,
+          useMaterial3: true,
+        ),
+        themeMode: ThemeMode.system,
         home: const HomePage(title: 'Jeu du tarot africain'),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
 import 'game_page.dart';
+import 'player_count_selector.dart';
 
 class PlayerPage extends StatefulWidget {
   const PlayerPage({super.key});
@@ -14,6 +15,7 @@ class _PlayerPageState extends State<PlayerPage> {
   final TextEditingController _nameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  // By default
   int _selectedPlayerCount = 3;
 
   @override
@@ -26,22 +28,22 @@ class _PlayerPageState extends State<PlayerPage> {
     final provider = context.read<GameProvider>();
     if (_formKey.currentState!.validate()) {
       // Add player
-      provider.addPlayer(_nameController.text.trim());
+      provider.addPlayer(_nameController.text.trim(), false);
 
       // Add others player (bots)
       final missing = _selectedPlayerCount - provider.players.length;
       for (var i = 1; i <= missing; i++) {
-        provider.addPlayer('Bot $i');
+        provider.addPlayer('Bot $i', true);
       }
       _nameController.clear();
 
       // Start the game
-      provider.startGame();
+      provider.startGame(context);
 
       // Redirect to the game page
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const GamePage()),
+        MaterialPageRoute(builder: (context) => const GamePage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -55,11 +57,14 @@ class _PlayerPageState extends State<PlayerPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Choix des joueurs'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(
+          'Choix des joueurs',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondary),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -78,9 +83,25 @@ class _PlayerPageState extends State<PlayerPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildPlayerCountSelector(3),
+                  PlayerCountSelector(
+                    count: 3,
+                    selectedCount: _selectedPlayerCount,
+                    onSelected: (value) {
+                      setState(() {
+                        _selectedPlayerCount = value;
+                      });
+                    },
+                  ),
                   const SizedBox(width: 20),
-                  _buildPlayerCountSelector(4),
+                  PlayerCountSelector(
+                    count: 4,
+                    selectedCount: _selectedPlayerCount,
+                    onSelected: (value) {
+                      setState(() {
+                        _selectedPlayerCount = value;
+                      });
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: 30),

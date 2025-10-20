@@ -15,6 +15,12 @@ class DeckModel {
     return _deck.map((card) => card.name).toList();
   }
 
+  List<CardModel> drawCards(int count) {
+    final drawn = _deck.sublist(0, count); // TODO: peut être faire carte par carte
+    _deck.removeRange(0, count);
+    return drawn;
+  }
+
   void _generateTrumpsAndExcuse() {
     // Trumps
     for (var i = 1; i <= 21; i++) {

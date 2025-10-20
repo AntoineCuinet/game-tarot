@@ -2,8 +2,9 @@ import '../models/deck_model.dart';
 import '../models/game_model.dart';
 import '../models/player_model.dart';
 import '../models/card_model.dart';
+import '../models/turn_model.dart';
 
-class GameViewModel  {
+class GameViewModel {
   final GameModel _game = GameModel();
   final List<Suit> _availableSuits = [
     Suit.club,
@@ -15,25 +16,51 @@ class GameViewModel  {
   int _playerId = 0;
 
   List<PlayerModel> get players => List.unmodifiable(_game.players);
+  DeckModel get currentDeck => deck;
 
-  void addPlayer(String name) {
+  void addPlayer(String name, bool isBot) {
     final suit = _availableSuits[_playerId];
     final player = PlayerModel(
       id: _playerId++,
       name: name,
       suit: suit,
+      isBot: isBot,
     );
     _game.addPlayer(player);
   }
 
   void setDealer(int playerId) => _game.setDealer(playerId);
 
-  void startNewGame() {
+  Future<void> startNewGame({
+    required Future<int?> Function(PlayerModel player, int maxValue) onHumanAnnounce,
+    required Future<CardModel?> Function(PlayerModel player, List<CardModel> hand) onHumanPlay,
+    required void Function(PlayerModel player, int announced) onAnnounceDisplayed,
+    required void Function(PlayerModel player, CardModel card) onCardPlayed,
+  }) async {
     _game.chooseRandomDealer();
-    deck.shuffle();
 
-    // TODO: distribue les cartes de la manche
+    while (true) {
+      // Round commence avec 5 cartes distribué par main, On recommence le tour suivant avec n-1 carte (bien réinitialiser les mains des joueurs, reprendre un deck et le remélanger)
+      for (int cards = 5; cards > 0; cards--) {
+        deck = DeckModel();
+        deck.shuffle();
+
+        final turn = TurnModel(players, deck, cards);
+
+        await turn.playTurn(
+          onHumanAnnounce: onHumanAnnounce,
+          onHumanPlay: onHumanPlay,
+          onAnnounceDisplayed: onAnnounceDisplayed,
+          onCardPlayed: onCardPlayed,
+        );
+
+        // Lorsqu'un joueur n'as plus de points -> fin, celui qui a le plus de point gagne
+        if (_game.players.any((p) => p.pointsRemaining <= 0)) {
+          // Fin de partie //TODO: rediriger sur une page de fin et d'affichage des scores
+          return;
+        }
+      }
+      _game.nextDealer();
+    }
   }
-
-  void playTurn() { /* logique d’un tour (annoncer, jouer, compter) */ }
 }
