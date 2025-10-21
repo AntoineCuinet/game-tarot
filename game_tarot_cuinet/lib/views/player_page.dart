@@ -27,6 +27,7 @@ class _PlayerPageState extends State<PlayerPage> {
     final provider = context.read<GameProvider>();
     if (_formKey.currentState!.validate()) {
       // Add player
+      provider.resetPlayers();
       provider.addPlayer(_nameController.text.trim(), false);
 
       // Add others player (bots)

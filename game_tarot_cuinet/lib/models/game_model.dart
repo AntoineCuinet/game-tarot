@@ -16,6 +16,10 @@ class GameModel {
     _players.add(player);
   }
 
+  void clearPlayers() {
+    _players.clear();
+  }
+
   void setDealer(int playerId) {
     for (var p in _players) {
       p.isDealer = (p.id == playerId);

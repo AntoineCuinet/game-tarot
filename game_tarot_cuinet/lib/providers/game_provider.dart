@@ -23,6 +23,11 @@ class GameProvider extends ChangeNotifier {
         notifyListeners();
     }
 
+    void resetPlayers() {
+        _viewModel.resetPlayers();
+        notifyListeners();
+    }
+
     void setDealer(int playerId) {
         _viewModel.setDealer(playerId);
         notifyListeners();
@@ -32,7 +37,7 @@ class GameProvider extends ChangeNotifier {
         await _viewModel.startNewGame(
             // callback pour l'annonce humaine : affiche une popup et retourne l'entier
             onHumanAnnounce: (player, maxValue) async {
-                return await numberInputDialog(context, max: maxValue);
+                return await numberInputDialog(context, maxValue);
             },
 
             // callback pour le choix de carte humain : affiche popup de choix de carte
@@ -48,6 +53,8 @@ class GameProvider extends ChangeNotifier {
 
             // callback appelé à chaque carte jouée //TODO: make this
             onCardPlayed: (player, card) {
+                player.lastPlayedCard = card;
+                notifyListeners();
             //    // pratique : garder la dernière carte jouée dans le joueur pour affichage
             //    player.lastPlayedCard = card; // assure-toi que PlayerModel possède lastPlayedCard
             //    notifyListeners();

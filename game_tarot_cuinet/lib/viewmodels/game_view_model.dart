@@ -29,6 +29,11 @@ class GameViewModel {
     _game.addPlayer(player);
   }
 
+  void resetPlayers() {
+    _playerId = 0;
+    _game.clearPlayers();
+  }
+
   void setDealer(int playerId) => _game.setDealer(playerId);
 
   Future<void> startNewGame({
@@ -39,7 +44,7 @@ class GameViewModel {
   }) async {
     _game.chooseRandomDealer();
 
-    while (true) {
+    //while (true) {
       // Round commence avec 5 cartes distribué par main, On recommence le tour suivant avec n-1 carte (bien réinitialiser les mains des joueurs, reprendre un deck et le remélanger)
       for (int cards = 5; cards > 0; cards--) {
         deck = DeckModel();
@@ -61,6 +66,6 @@ class GameViewModel {
         }
       }
       _game.nextDealer();
-    }
+    //}
   }
 }

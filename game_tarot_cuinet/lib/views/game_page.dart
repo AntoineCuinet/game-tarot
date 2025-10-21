@@ -102,6 +102,17 @@ class _GamePageState extends State<GamePage> {
                     return Image.asset(card.assetPath, width: 60, height: 100);
                   }).toList(),
                 ),
+
+                Text(
+                  '${player.wonTricks} / ${player.announcedTricks}',
+                ),
+
+                if (player.lastPlayedCard != null)
+                  Image.asset(
+                    player.lastPlayedCard!.assetPath,
+                    width: 60,
+                    height: 100,
+                  )
               ]
             )
         ),

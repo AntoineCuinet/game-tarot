@@ -8,6 +8,7 @@ class PlayerModel {
   final Suit _suit;
   bool isDealer;
   bool isBot;
+  CardModel? lastPlayedCard;
 
   final List<CardModel> _ordinaryCards = [];
   final List<CardModel> _hand = [];
@@ -49,11 +50,14 @@ class PlayerModel {
 
   CardModel playRandomCard() {
     final index = Random().nextInt(_hand.length);
-    return _hand.removeAt(index);
+    final card = _hand.removeAt(index);
+    lastPlayedCard = card;
+    return card;
   }
 
   CardModel playCard(CardModel card) {
     if (!_hand.contains(card)) throw Exception("Carte non trouvée !");
+    lastPlayedCard = card;
     _hand.remove(card);
     return card;
   }
@@ -61,6 +65,7 @@ class PlayerModel {
   void resetTrickStats() {
     wonTricks = 0;
     announcedTricks = null;
+    lastPlayedCard = null;
   }
 
   void _generateOrdinaryCards() {

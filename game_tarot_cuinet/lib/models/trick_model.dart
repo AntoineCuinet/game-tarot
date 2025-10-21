@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'player_model.dart';
@@ -19,6 +20,7 @@ class TrickModel {
     int totalAnnouncements = 0;
 
     for (int i = 0; i < players.length; i++) {
+      await Future.delayed(const Duration(seconds: 1));
       final player = players[i];
       final bool isDealer = player.isDealer;
 
@@ -57,6 +59,7 @@ class TrickModel {
     required void Function(PlayerModel player, CardModel playedCard) onCardPlayed,
   }) async {
     for (final player in players) {
+      await Future.delayed(const Duration(seconds: 1));
       late CardModel playedCard;
 
       if (player.isBot) {

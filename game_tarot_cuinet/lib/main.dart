@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'providers/game_provider.dart';
 import 'views/home_page.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   runApp(const App());
 }
@@ -49,6 +51,7 @@ class App extends StatelessWidget {
           useMaterial3: true,
         ),
         themeMode: ThemeMode.system,
+        navigatorKey: navigatorKey,
         home: const HomePage(title: 'Jeu du tarot africain'),
       ),
     );
