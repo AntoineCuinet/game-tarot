@@ -51,13 +51,17 @@ class GameProvider extends ChangeNotifier {
                 notifyListeners(); // rafraîchit la vue pour montrer l'annonce
             },
 
-            // callback appelé à chaque carte jouée //TODO: make this
+            // callback appelé à chaque carte jouée
             onCardPlayed: (player, card) {
                 player.lastPlayedCard = card;
                 notifyListeners();
             //    // pratique : garder la dernière carte jouée dans le joueur pour affichage
             //    player.lastPlayedCard = card; // assure-toi que PlayerModel possède lastPlayedCard
             //    notifyListeners();
+            },
+            onTurnEnded: () { //TODO: En cours
+                // Appelé après chaque manche
+                notifyListeners();
             },
         );
     }

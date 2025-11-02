@@ -39,30 +39,30 @@ class _GamePageState extends State<GamePage> {
 
             // Joueur de gauche
             Positioned(
-              left: 20,
+              left: 5,
               top: MediaQuery.of(context).size.height * 0.25,
-              child: buildPlayer(players[1], isVertical: true),
+              child: buildPlayer(players[1], rotationIndex: 1),
             ),
 
             // Joueur du haut
             if (players.length > 3)
               Positioned(
-                top: 20,
-                child: buildPlayer(players[2]),
+                top: 10,
+                child: buildPlayer(players[2], rotationIndex: 2),
               )
             else
               Positioned(
-                right: 20,
+                right: 5,
                 top: MediaQuery.of(context).size.height * 0.25,
-                child: buildPlayer(players[2], isVertical: true),
+                child: buildPlayer(players[2], rotationIndex: 3),
               ),
 
             // Joueur de droite
             if (players.length > 3)
               Positioned(
-                right: 20,
+                right: 5,
                 top: MediaQuery.of(context).size.height * 0.25,
-                child: buildPlayer(players[3], isVertical: true),
+                child: buildPlayer(players[3], rotationIndex: 3),
               ),
           ],
         ),
@@ -70,53 +70,81 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
+  Widget buildPlayer(PlayerModel player, {int rotationIndex = 0}) {
+    final String backOfCard = 'assets/CaJ-TaroTv1-Dos.png';
 
-  Widget buildPlayer(PlayerModel player, {bool isVertical = false}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(
-          player.isDealer ? Icons.star : Icons.person,
-          color: player.isDealer ? Colors.amber : Colors.grey,
-          size: 30,
+        Row (
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              player.isDealer ? Icons.star : Icons.person,
+              color: player.isDealer ? Colors.amber : Colors.grey,
+              size: 30,
+            ),
+            Text(
+              player.name,
+              style: TextStyle(
+                fontWeight:
+                player.isDealer ? FontWeight.bold : FontWeight.normal,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(width: 20),
+            Text(
+              '${player.wonTricks} / ${player.announcedTricks}',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ]
         ),
-        Text(
-          player.name,
-          style: TextStyle(
-            fontWeight:
-            player.isDealer ? FontWeight.bold : FontWeight.normal,
-            color: Colors.white,
-          ),
-        ),
-        const SizedBox(height: 4),
+
         RotatedBox(
-          quarterTurns: isVertical ? 3 : 0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  player.ordinaryCards.first.name,
-                ),
-                Wrap(
-                  children: player.hand.map((card) {
-                    return Image.asset(card.assetPath, width: 60, height: 100);
-                  }).toList(),
-                ),
-
-                Text(
-                  '${player.wonTricks} / ${player.announcedTricks}',
-                ),
-
-                if (player.lastPlayedCard != null)
+          quarterTurns: rotationIndex,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (player.lastPlayedCard != null)
+                    Image.asset(
+                      player.lastPlayedCard!.assetPath,
+                      width: 60,
+                      height: 100,
+                    )
+                ]
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Wrap(
+                      children: player.hand.map((card) {
+                        if (card.isVisible)
+                          return Image.asset(card.assetPath, width: 60, height: 100);
+                        else
+                          return Image.asset(backOfCard, width: 40, height: 80);
+                      }).toList(),
+                    ),
+                  ),
                   Image.asset(
-                    player.lastPlayedCard!.assetPath,
+                    player.ordinaryCards.first.assetPath,
                     width: 60,
                     height: 100,
-                  )
-              ]
-            )
-        ),
-      ],
+                  ),
+                ]
+              )
+            ],
+          ),
+        )
+      ]
     );
   }
 }

@@ -26,19 +26,16 @@ class GameModel {
     }
   }
 
-  void chooseRandomDealer() {
-    if (_players.isEmpty) return;
-
+  PlayerModel chooseRandomDealer() {
     // Random whith 0 and players.length - 1
     final randomIndex = Random().nextInt(_players.length);
     final selectedPlayer = _players[randomIndex];
 
     setDealer(selectedPlayer.id);
+    return selectedPlayer;
   }
 
-  void nextDealer() {
-    if (_players.isEmpty) return;
-
+  PlayerModel nextDealer() {
     final currentIndex = _players.indexWhere((p) => p.isDealer);
     if (currentIndex != -1) {
       _players[currentIndex].isDealer = false;
@@ -46,5 +43,7 @@ class GameModel {
 
     final nextIndex = (currentIndex + 1) % _players.length;
     _players[nextIndex].isDealer = true;
+
+    return _players[nextIndex];
   }
 }

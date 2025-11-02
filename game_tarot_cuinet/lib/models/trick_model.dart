@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:math';
-
 import 'player_model.dart';
 import 'card_model.dart';
 
@@ -16,12 +14,19 @@ class TrickModel {
     required Future<int?> Function(PlayerModel player, int maxValue) onHumanAnnounce,
     required void Function(PlayerModel player, int announced) onAnnounceDisplayed,
     required int cardsInHand,
+    required int startingIndex,
   }) async {
     int totalAnnouncements = 0;
 
-    for (int i = 0; i < players.length; i++) {
-      await Future.delayed(const Duration(seconds: 1));
-      final player = players[i];
+    // Création de l'ordre de passage
+    final orderedPlayers = [
+      ...players.sublist(startingIndex),
+      ...players.sublist(0, startingIndex)
+    ];
+
+    for (int i = 0; i < orderedPlayers.length; i++) {
+      await Future.delayed(const Duration(seconds: 5));
+      final player = orderedPlayers[i];
       final bool isDealer = player.isDealer;
 
       int announced;
@@ -78,9 +83,6 @@ class TrickModel {
 
     return _determineWinner();
   }
-
-
-
 
   PlayerModel _determineWinner() {
     final entries = playedCards.entries.toList();

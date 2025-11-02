@@ -88,7 +88,7 @@ class PlayerModel {
           suit: suit,
           name: name,
           value: values[name]!,
-          assetPath: 'assets/CaJ-TaroTv1-${values[name]}.png', // TODO: ajouter les noms complets
+          assetPath: 'assets/CaJ-TaroTv1-${values[name]}${suit.name}.png',
         ),
       );
     }

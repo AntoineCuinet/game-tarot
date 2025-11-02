@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart'; //TODO: En cours
 import '../models/deck_model.dart';
 import '../models/game_model.dart';
 import '../models/player_model.dart';
@@ -41,22 +42,24 @@ class GameViewModel {
     required Future<CardModel?> Function(PlayerModel player, List<CardModel> hand) onHumanPlay,
     required void Function(PlayerModel player, int announced) onAnnounceDisplayed,
     required void Function(PlayerModel player, CardModel card) onCardPlayed,
+    VoidCallback? onTurnEnded, //TODO: En cours
   }) async {
-    _game.chooseRandomDealer();
+    PlayerModel dealer = _game.chooseRandomDealer();
 
-    //while (true) {
+    while (true) {
       // Round commence avec 5 cartes distribué par main, On recommence le tour suivant avec n-1 carte (bien réinitialiser les mains des joueurs, reprendre un deck et le remélanger)
       for (int cards = 5; cards > 0; cards--) {
         deck = DeckModel();
         deck.shuffle();
 
-        final turn = TurnModel(players, deck, cards);
+        final turn = TurnModel(players, deck, cards, dealer);
 
         await turn.playTurn(
           onHumanAnnounce: onHumanAnnounce,
           onHumanPlay: onHumanPlay,
           onAnnounceDisplayed: onAnnounceDisplayed,
           onCardPlayed: onCardPlayed,
+          onTurnEnded: onTurnEnded, //TODO: En cours
         );
 
         // Lorsqu'un joueur n'as plus de points -> fin, celui qui a le plus de point gagne
@@ -65,7 +68,7 @@ class GameViewModel {
           return;
         }
       }
-      _game.nextDealer();
-    //}
+      dealer = _game.nextDealer();
+    }
   }
 }
