@@ -1,3 +1,9 @@
+/*              Mobile development             */
+/*              Project in Flutter             */
+/*                CUINET ANTOINE               */
+/*               M1 Informatique               */
+/*                UMLP - UFR ST                */
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/game_provider.dart';

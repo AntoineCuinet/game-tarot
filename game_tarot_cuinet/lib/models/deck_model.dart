@@ -16,7 +16,7 @@ class DeckModel {
   }
 
   List<CardModel> drawCards(int count) {
-    final drawn = _deck.sublist(0, count); // TODO: peut être faire carte par carte
+    final drawn = _deck.sublist(0, count);
     _deck.removeRange(0, count);
     return drawn;
   }

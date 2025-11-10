@@ -12,6 +12,7 @@ Future<int?> numberInputDialog(BuildContext context, max) async {
     barrierDismissible: false,
     builder: (context) {
       return AlertDialog(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title: const Text('Annonce ton nombre de plis'),
         content: TextField(
           controller: controller,

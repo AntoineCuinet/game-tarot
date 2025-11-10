@@ -59,8 +59,8 @@ class GameProvider extends ChangeNotifier {
             //    player.lastPlayedCard = card; // assure-toi que PlayerModel possède lastPlayedCard
             //    notifyListeners();
             },
-            onTurnEnded: () { //TODO: En cours
-                // Appelé après chaque manche
+            onTurnEnded: () {
+                debugPrint("Fin de manche : mise à jour des points.");
                 notifyListeners();
             },
         );

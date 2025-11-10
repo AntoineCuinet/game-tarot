@@ -1,9 +1,10 @@
-import 'package:flutter/foundation.dart'; //TODO: En cours
+import 'package:flutter/foundation.dart';
 import '../models/deck_model.dart';
 import '../models/game_model.dart';
 import '../models/player_model.dart';
 import '../models/card_model.dart';
 import '../models/turn_model.dart';
+import '../views/game_input_dialog.dart';
 
 class GameViewModel {
   final GameModel _game = GameModel();
@@ -15,6 +16,7 @@ class GameViewModel {
   ];
   DeckModel deck = DeckModel();
   int _playerId = 0;
+  int _idRound = 1;
 
   List<PlayerModel> get players => List.unmodifiable(_game.players);
   DeckModel get currentDeck => deck;
@@ -42,7 +44,7 @@ class GameViewModel {
     required Future<CardModel?> Function(PlayerModel player, List<CardModel> hand) onHumanPlay,
     required void Function(PlayerModel player, int announced) onAnnounceDisplayed,
     required void Function(PlayerModel player, CardModel card) onCardPlayed,
-    VoidCallback? onTurnEnded, //TODO: En cours
+    VoidCallback? onTurnEnded,
   }) async {
     PlayerModel dealer = _game.chooseRandomDealer();
 
@@ -59,7 +61,7 @@ class GameViewModel {
           onHumanPlay: onHumanPlay,
           onAnnounceDisplayed: onAnnounceDisplayed,
           onCardPlayed: onCardPlayed,
-          onTurnEnded: onTurnEnded, //TODO: En cours
+          onTurnEnded: onTurnEnded,
         );
 
         // Lorsqu'un joueur n'as plus de points -> fin, celui qui a le plus de point gagne
@@ -69,6 +71,12 @@ class GameViewModel {
         }
       }
       dealer = _game.nextDealer();
+      await gameInputDialog(
+        title: 'Fin de la manche $_idRound',
+        message: 'La manche est terminée.\nLe nouveau donneur est : ${dealer.name}',
+        buttonText: 'Continuer',
+      );
+      _idRound ++;
     }
   }
 }

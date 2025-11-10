@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:collection';
 
 import 'card_model.dart';
 
@@ -26,7 +27,7 @@ class PlayerModel {
   Suit get suit => _suit;
   int get pointsRemaining => _ordinaryCards.length;
 
-  List<CardModel> get ordinaryCards => List.unmodifiable(_ordinaryCards);
+  UnmodifiableListView<CardModel> get ordinaryCards => UnmodifiableListView(_ordinaryCards);
   List<CardModel> get hand => List.unmodifiable(_hand);
 
   void announce(int tricks) => announcedTricks = tricks;
@@ -39,7 +40,7 @@ class PlayerModel {
 
   void removePoints(int points) {
     for (int i = 0; i < points && _ordinaryCards.isNotEmpty; i++) {
-      _ordinaryCards.removeLast();
+      _ordinaryCards.removeAt(0);
     }
   }
 
@@ -60,6 +61,10 @@ class PlayerModel {
     lastPlayedCard = card;
     _hand.remove(card);
     return card;
+  }
+
+  void clearLastPlayedCard() {
+    lastPlayedCard = null;
   }
 
   void resetTrickStats() {

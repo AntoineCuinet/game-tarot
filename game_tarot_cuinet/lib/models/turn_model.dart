@@ -1,8 +1,9 @@
-import 'package:flutter/foundation.dart'; //TODO: En cours
+import 'package:flutter/foundation.dart';
 import 'trick_model.dart';
 import 'player_model.dart';
 import 'deck_model.dart';
 import 'card_model.dart';
+import '../views/game_input_dialog.dart';
 
 class TurnModel {
   final List<PlayerModel> players;
@@ -21,7 +22,7 @@ class TurnModel {
     required Future<CardModel?> Function(PlayerModel player, List<CardModel> hand) onHumanPlay,
     required void Function(PlayerModel player, int announced) onAnnounceDisplayed,
     required void Function(PlayerModel player, CardModel card) onCardPlayed,
-    VoidCallback? onTurnEnded, //TODO: En cours
+    VoidCallback? onTurnEnded,
   }) async {
     // --- Distribution ---
     for (final player in players) {
@@ -41,6 +42,8 @@ class TurnModel {
       startingIndex: _startingPlayerIndex,
     );
 
+    await Future.delayed(const Duration(seconds: 2));
+
     // --- Phase des plis ---
     for (int trickIndex = 0; trickIndex < cardsPerPlayer; trickIndex++) {
       // Crée un ordre de jeu tournant à partir du joueur qui doit commencer
@@ -53,6 +56,18 @@ class TurnModel {
         onCardPlayed: onCardPlayed,
       );
 
+      await Future.delayed(const Duration(seconds: 2));
+
+      for (final player in players) {
+        player.clearLastPlayedCard();
+      }
+
+      await gameInputDialog(
+        title: 'Fin du plis',
+        message: 'Le gagnant du plis est : ${winner.name}',
+        buttonText: 'Continuer',
+      );
+
       // Le gagnant du pli commence le prochain pli
       _rotateStartingPlayer(winner);
     }
@@ -63,12 +78,22 @@ class TurnModel {
       player.resetTrickStats();
     }
 
+    final scoresMessage = players
+        .map((p) => '${p.name} : ${p.pointsRemaining} cartes restantes, ${p.ordinaryCards.first.name}')
+        .join('\n');
+
+    await gameInputDialog(
+      title: 'Fin du tour',
+      message: scoresMessage,
+      buttonText: 'Continuer',
+    );
+
+    // Notifie la fin de la manche
+    if (onTurnEnded != null) onTurnEnded();
+
     // On revient à gauche du donneur
     final dealerIndex = players.indexOf(dealer);
     _startingPlayerIndex = (dealerIndex + 1) % players.length;
-
-    // Notifie la fin de la manche
-    if (onTurnEnded != null) onTurnEnded(); //TODO: En cours
   }
 
   /// Retourne la liste des joueurs dans l'ordre de jeu actuel

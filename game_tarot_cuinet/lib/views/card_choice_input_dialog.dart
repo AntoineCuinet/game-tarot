@@ -11,6 +11,7 @@ Future<CardModel?> cardChoiceInputDialog(BuildContext context, List<CardModel> h
     barrierDismissible: false,
     builder: (context) {
       return AlertDialog(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title: const Text('Choisis une carte à jouer'),
         content: SingleChildScrollView(
           child: Wrap(

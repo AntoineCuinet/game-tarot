@@ -25,7 +25,7 @@ class TrickModel {
     ];
 
     for (int i = 0; i < orderedPlayers.length; i++) {
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 2));
       final player = orderedPlayers[i];
       final bool isDealer = player.isDealer;
 
@@ -64,7 +64,7 @@ class TrickModel {
     required void Function(PlayerModel player, CardModel playedCard) onCardPlayed,
   }) async {
     for (final player in players) {
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 2));
       late CardModel playedCard;
 
       if (player.isBot) {
