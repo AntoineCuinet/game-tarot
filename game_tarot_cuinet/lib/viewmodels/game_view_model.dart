@@ -72,7 +72,7 @@ class GameViewModel {
 
           await gameInputDialog(
             title: 'Fin de la partie',
-            message: "Voici le classement final :\n\n$rankingMessage",
+            message: 'Voici le classement final :\n\n$rankingMessage',
             buttonText: 'Retour à l\'accueil',
             onConfirm: () {
               final context = navigatorKey.currentContext;
@@ -102,7 +102,7 @@ class GameViewModel {
 
     for (int i = 0; i < sorted.length; i++) {
       final p = sorted[i];
-      buffer.writeln("${i + 1}. ${p.name} — ${p.pointsRemaining} points");
+      buffer.writeln('${i + 1}. ${p.name} — ${p.pointsRemaining} points');
     }
 
     return buffer.toString();

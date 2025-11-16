@@ -1,4 +1,5 @@
 import 'dart:math';
+import '../widgets/excuse_value_input_dialog.dart';
 import 'player_model.dart';
 import 'card_model.dart';
 import 'bot_model.dart';
@@ -81,8 +82,17 @@ class TrickModel {
       } else {
         final chosen = await onHumanPlay(player, player.hand);
         if (chosen == null) {
-          throw Exception("Le joueur humain doit choisir une carte !");
+          throw Exception('Le joueur humain doit choisir une carte !');
         }
+
+        // Cas spécial: Excuse
+        if (chosen.name.toLowerCase() == 'excuse') {
+          final value = await excuseValueInputDialog();
+          if (value != null) {
+            chosen.value = value; // met à jour la valeur de la carte Excuse
+          }
+        }
+
         playedCard = player.playCard(chosen);
       }
 

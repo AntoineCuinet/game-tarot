@@ -1,5 +1,5 @@
 class CardModel {
-  final int value;
+  int value;
   final String name;
   final Suit suit;
   final String assetPath; // path to picture

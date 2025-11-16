@@ -57,14 +57,14 @@ Cela peut paraitre simple mais pourtant les bots sont (très) difficiles a battr
 TODO:
 
 faire le dernier tour avec notre carte caché mais on voit les cartes des autres 
-Faire condition et choix sur l'excuse
 
-Revue de code 
-Commentaire et javaDoc
+Revue de code (guillement, code propre, code mort, getteur et setter, attribut privés...)
+Commentaire et javaDoc en anglais
 
 dark mode plus beau
 Trier les mains par ordre croissant
 Refaire le front-end en plus beau + ajouter un vrai plateau
+
 changer le nombre de vie (nbre de carte au début)
 bruitage
 Choix de la difficulté des bots
