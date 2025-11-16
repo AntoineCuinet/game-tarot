@@ -23,7 +23,11 @@ Future<CardModel?> cardChoiceInputDialog(BuildContext context, List<CardModel> h
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset(card.assetPath, width: 60, height: 100),
+                    Image.asset(
+                        card.isVisible ? card.assetPath : 'assets/CaJ-TaroTv1-Dos.png',
+                        width: 60,
+                        height: 100
+                    ),
                   ],
                 ),
               );

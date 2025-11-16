@@ -27,8 +27,14 @@ class TurnModel {
     // --- Distribution ---
     for (final player in players) {
       final cards = deck.drawCards(cardsPerPlayer);
+      final bool isLastTurn = (cardsPerPlayer == 1);
+
       for (final card in cards) {
-        card.isVisible = !player.isBot; // Cache les cartes des autres joueurs
+        if (isLastTurn) {
+          card.isVisible = player.isBot; // le joueur ne voit pas sa carte
+        } else {
+          card.isVisible = !player.isBot; // comportement normal
+        }
       }
       player.receiveCards(cards);
     }

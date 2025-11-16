@@ -56,10 +56,9 @@ Cela peut paraitre simple mais pourtant les bots sont (très) difficiles a battr
 
 TODO:
 
-faire le dernier tour avec notre carte caché mais on voit les cartes des autres 
-
 Revue de code (guillement, code propre, code mort, getteur et setter, attribut privés...)
 Commentaire et javaDoc en anglais
+ReadMe propre en anglais 
 
 dark mode plus beau
 Trier les mains par ordre croissant
