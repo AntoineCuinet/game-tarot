@@ -3,7 +3,7 @@ import 'trick_model.dart';
 import 'player_model.dart';
 import 'deck_model.dart';
 import 'card_model.dart';
-import '../views/game_input_dialog.dart';
+import '../widgets/game_input_dialog.dart';
 
 class TurnModel {
   final List<PlayerModel> players;
@@ -18,7 +18,7 @@ class TurnModel {
   }
 
   Future<void> playTurn({
-    required Future<int?> Function(PlayerModel player, int maxValue) onHumanAnnounce,
+    required Future<int?> Function(PlayerModel player, int maxValue, {int? forbiddenValue}) onHumanAnnounce,
     required Future<CardModel?> Function(PlayerModel player, List<CardModel> hand) onHumanPlay,
     required void Function(PlayerModel player, int announced) onAnnounceDisplayed,
     required void Function(PlayerModel player, CardModel card) onCardPlayed,
@@ -79,7 +79,7 @@ class TurnModel {
     }
 
     final scoresMessage = players
-        .map((p) => '${p.name} : ${p.pointsRemaining} cartes restantes, ${p.ordinaryCards.first.name}')
+        .map((p) => '${p.name} : ${p.pointsRemaining} points restants')
         .join('\n');
 
     await gameInputDialog(

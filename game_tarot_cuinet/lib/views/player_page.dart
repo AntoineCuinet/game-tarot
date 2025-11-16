@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
 import 'game_page.dart';
-import 'player_count_selector.dart';
-import 'custom_button.dart';
+import '../widgets/player_count_selector.dart';
+import '../widgets/custom_button.dart';
 
 class PlayerPage extends StatefulWidget {
   const PlayerPage({super.key});

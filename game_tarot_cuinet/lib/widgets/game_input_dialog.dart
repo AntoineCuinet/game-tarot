@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
-import './custom_button.dart';
+import 'custom_button.dart';
 
 /// Affiche une boîte de dialogue d'information personnalisable.
 /// [title] → Titre de la popup.
@@ -10,6 +10,7 @@ Future<void> gameInputDialog({
   required String title,
   required String message,
   String buttonText = 'OK',
+  VoidCallback? onConfirm,
 }) async {
   final context = navigatorKey.currentContext;
   if (context == null) return;
@@ -33,7 +34,10 @@ Future<void> gameInputDialog({
           Center(
             child: CustomButton(
               text: buttonText,
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                Navigator.of(context).pop();
+                if (onConfirm != null) onConfirm();
+              },
             ),
           ),
         ],

@@ -1,10 +1,13 @@
-import 'package:flutter/foundation.dart';
+import '../main.dart';
+import 'package:flutter/material.dart';
+
 import '../models/deck_model.dart';
 import '../models/game_model.dart';
 import '../models/player_model.dart';
 import '../models/card_model.dart';
 import '../models/turn_model.dart';
-import '../views/game_input_dialog.dart';
+import '../models/bot_model.dart';
+import '../widgets/game_input_dialog.dart';
 
 class GameViewModel {
   final GameModel _game = GameModel();
@@ -23,12 +26,11 @@ class GameViewModel {
 
   void addPlayer(String name, bool isBot) {
     final suit = _availableSuits[_playerId];
-    final player = PlayerModel(
-      id: _playerId++,
-      name: name,
-      suit: suit,
-      isBot: isBot,
-    );
+
+    final player = isBot
+        ? BotModel(id: _playerId++, name: name, suit: suit)
+        : PlayerModel(id: _playerId++, name: name, suit: suit, isBot: false);
+
     _game.addPlayer(player);
   }
 
@@ -40,7 +42,7 @@ class GameViewModel {
   void setDealer(int playerId) => _game.setDealer(playerId);
 
   Future<void> startNewGame({
-    required Future<int?> Function(PlayerModel player, int maxValue) onHumanAnnounce,
+    required Future<int?> Function(PlayerModel player, int maxValue, {int? forbiddenValue}) onHumanAnnounce,
     required Future<CardModel?> Function(PlayerModel player, List<CardModel> hand) onHumanPlay,
     required void Function(PlayerModel player, int announced) onAnnounceDisplayed,
     required void Function(PlayerModel player, CardModel card) onCardPlayed,
@@ -66,7 +68,20 @@ class GameViewModel {
 
         // Lorsqu'un joueur n'as plus de points -> fin, celui qui a le plus de point gagne
         if (_game.players.any((p) => p.pointsRemaining <= 0)) {
-          // Fin de partie //TODO: rediriger sur une page de fin et d'affichage des scores
+          final rankingMessage = buildFinalRanking(_game.players);
+
+          await gameInputDialog(
+            title: 'Fin de la partie',
+            message: "Voici le classement final :\n\n$rankingMessage",
+            buttonText: 'Retour à l\'accueil',
+            onConfirm: () {
+              final context = navigatorKey.currentContext;
+              if (context != null) {
+                Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+              }
+            },
+          );
+
           return;
         }
       }
@@ -78,5 +93,18 @@ class GameViewModel {
       );
       _idRound ++;
     }
+  }
+
+  String buildFinalRanking(List<PlayerModel> players) {
+    final sorted = [...players]..sort((a, b) => b.pointsRemaining.compareTo(a.pointsRemaining));
+
+    final buffer = StringBuffer();
+
+    for (int i = 0; i < sorted.length; i++) {
+      final p = sorted[i];
+      buffer.writeln("${i + 1}. ${p.name} — ${p.pointsRemaining} points");
+    }
+
+    return buffer.toString();
   }
 }

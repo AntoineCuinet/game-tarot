@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'player_page.dart';
-import 'custom_button.dart';
+import '../widgets/custom_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});

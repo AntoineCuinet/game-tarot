@@ -26,9 +26,13 @@ lib/
 ├── viewmodels/
 │   └── game_view_model.dart
 │
-└── views/
-    ├── home_page.dart
-    ├── game_page.dart
+├── views/
+│   ├── game_page.dart
+│   ├── home_page.dart
+│   └── player_page.dart
+│
+└── widgets
+    ├──custom_button.dart
     └── ...
 ```
 
@@ -40,15 +44,27 @@ lib/
 
 ## Choix du pseudo
 
+Plus de facilité a voir qui en est ou en therme de score dans la partie + annonce du vainqueur plus lisible
+
 ## Bot intéligent 
+Les bots choississent leurs nombre de plis de facon intéligente en fonction de leur cartes en main. Le nombre de plis annoncé vaut le nombre de carte en main supérieur a 15.
+Cela peut paraitre simple mais pourtant les bots sont (très) difficiles a battre !
+
+## Carte de notre main trié
 
 
-rendre les bots intéligents
-condition de fin
-faire le dernier tour avec ntre carte caché mais on voit les cartes des autres 
-v&rifier changement du dealer (doit devenir celui à sa gauche)
-conditions sur le dernier qui annonce à vérifier/faire (!= somme des cartes en main)
+
+TODO:
+
+faire le dernier tour avec notre carte caché mais on voit les cartes des autres 
+Faire condition et choix sur l'excuse
+
+Revue de code 
+Commentaire et javaDoc
 
 dark mode plus beau
+Trier les mains par ordre croissant
+Refaire le front-end en plus beau + ajouter un vrai plateau
 changer le nombre de vie (nbre de carte au début)
 bruitage
+Choix de la difficulté des bots
