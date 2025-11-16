@@ -1,14 +1,67 @@
 # Mobile development project in Flutter - African tarot game
 
-## Logique MVMM 
+## Table of Contents
 
-Séparation des rôles :
+- [Mobile development project in Flutter - African tarot game](#mobile-development-project-in-flutter---african-tarot-game)
+  - [Table of Contents](#table-of-contents)
+  - [Project Overview](#project-overview)
+  - [Game Rules and Requirements](#game-rules-and-requirements)
+  - [Application Structure](#application-structure)
+    - [Model](#model)
+    - [ViewModel](#viewmodel)
+    - [View](#view)
+    - [Provider](#provider)
+  - [Project Tree](#project-tree)
+  - [Player Setup](#player-setup)
+    - [Number of Players](#number-of-players)
+    - [Player Nickname](#player-nickname)
+  - [Intelligent Bots](#intelligent-bots)
+  - [Sorted Hand](#sorted-hand)
+  - [Dark mode](#dark-mode)
+  - [UI/UX Design](#uiux-design)
 
-Couche	Rôle
-Model	Contient les données (cartes, joueurs, état du jeu)
-ViewModel	Gère la logique métier (distribuer les cartes, jouer un tour, calculer les scores)
-View	Interface utilisateur (widgets, pages Flutter)
-Provider	Sert d’intermédiaire entre View et ViewModel (notifie la vue quand les données changent)
+## Project Overview
+
+This project is a mobile implementation of the African Tarot card game using Flutter.
+It is designed with MVVM architecture, ensuring a clean separation between the data, business logic, and user interface.
+
+The application allows human player to compete against intelligent bots in a fully interactive Tarot game, with scoring, announcements, and a visually appealing UI.
+
+## Game Rules and Requirements
+
+All base rules of the African Tarot game have been fully implemented.
+Additionally, every requirement specified in the project instructions has been integrated, along with several extra features to improve gameplay, UI, and overall user experience.
+
+## Application Structure
+
+The application is structured using a true MVVM architecture, ensuring a clear separation of concerns and making the project scalable, and easy to maintain.
+
+### Model
+
+The Model layer contains only the data structures essential to the game logic: cards, players, scores, the deck, rounds, tricks...
+They are pure Dart classes representing the current state of the game.
+
+### ViewModel
+
+The ViewModel contains the core business logic of the application: dealing cards, managing game phases (announcements, tricks, end of round), determining winners...
+
+### View
+
+The View layer represents the UI built with Flutter widgets.
+The views display information exposed by the ViewModel and forward user actions back to it.
+Views contain no business logic—only rendering, layout, and interactions.
+
+### Provider
+
+The Provider acts as a binding layer between View and ViewModel.
+Whenever the ViewModel updates the state:
+
+- The Provider notifies listeners
+- The View rebuilds automatically
+
+This keeps the UI always in sync with the game logic while maintaining a strict separation between data and visuals.
+
+## Project Tree
 
 ```shell
 lib/
@@ -36,29 +89,46 @@ lib/
     └── ...
 ```
 
+## Player Setup
+
+### Number of Players
+
+Players can choose whether to play with 3 or 4 players, as requested in the project specifications.
+
+### Player Nickname
+
+Players can choose their nickname, making it easier to track scores and identify the winner at the end of the game (and this is cool).
+
+## Intelligent Bots
+
+Bots now announce the number of tricks based on the strength of their hand.
+They count the number of cards higher than 15 in their hand and announce that as their expected number of tricks
+
+This simple AI creates challenging opponents.
+
+## Sorted Hand
+
+The hand is automatically sorted in ascending order, making it easier to see the strongest and weakest cards, and improving card selection.
+
 ## Dark mode
 
-## UI/UX
+The application supports dark mode automatically based on the device’s theme settings.
+If the device is in dark mode, the application switches to a dark theme seamlessly.
 
-## Choix du nombre de joueurs
+## UI/UX Design
 
-## Choix du pseudo
+Special attention has been given to design and usability:
 
-Plus de facilité a voir qui en est ou en therme de score dans la partie + annonce du vainqueur plus lisible
-
-## Bot intéligent 
-Les bots choississent leurs nombre de plis de facon intéligente en fonction de leur cartes en main. Le nombre de plis annoncé vaut le nombre de carte en main supérieur a 15.
-Cela peut paraitre simple mais pourtant les bots sont (très) difficiles a battre !
-
-## Carte de notre main trié
+- Custom buttons
+- Intuitive form fields with clear labels
+- Visual feedback for all actions (announcements, card play)
+- ...
 
 
-
-TODO:
+## TODO
 
 Revue de code (guillement, code propre, code mort, getteur et setter, attribut privés...)
 Commentaire et javaDoc en anglais
-ReadMe propre en anglais 
 
 dark mode plus beau
 Trier les mains par ordre croissant
