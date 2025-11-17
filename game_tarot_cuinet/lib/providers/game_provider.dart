@@ -1,69 +1,75 @@
 import 'package:flutter/material.dart';
-import '../models/trick_model.dart';
+
 import '../models/deck_model.dart';
 import '../models/player_model.dart';
+import '../models/trick_model.dart';
 import '../viewmodels/game_view_model.dart';
-
-import '../widgets/number_input_dialog.dart';
 import '../widgets/card_choice_input_dialog.dart';
+import '../widgets/number_input_dialog.dart';
 
+
+/// Provider managing the game state and interactions between the views and the GameViewModel.
+/// It uses ChangeNotifier to notify listeners of state changes.
 class GameProvider extends ChangeNotifier {
-    final GameViewModel _viewModel = GameViewModel();
+  final GameViewModel _viewModel = GameViewModel();
 
-    TrickModel? _currentTrick;
-    PlayerModel? _trickWinner;
+  TrickModel? _currentTrick;
+  PlayerModel? _trickWinner;
 
-    List<PlayerModel> get players => _viewModel.players;
-    TrickModel? get currentTrick => _currentTrick;
-    PlayerModel? get trickWinner => _trickWinner;
-    DeckModel get deck => _viewModel.currentDeck;
+  List<PlayerModel> get players => _viewModel.players;
+  TrickModel? get currentTrick => _currentTrick;
+  PlayerModel? get trickWinner => _trickWinner;
+  DeckModel get deck => _viewModel.currentDeck;
 
-    void addPlayer(String name, bool isBot) {
-        _viewModel.addPlayer(name, isBot);
-        notifyListeners();
-    }
+  void addPlayer(String name, bool isBot) {
+    _viewModel.addPlayer(name, isBot);
+    notifyListeners();
+  }
 
-    void resetPlayers() {
-        _viewModel.resetPlayers();
-        notifyListeners();
-    }
+  void resetPlayers() {
+    _viewModel.resetPlayers();
+    notifyListeners();
+  }
 
-    void setDealer(int playerId) {
-        _viewModel.setDealer(playerId);
-        notifyListeners();
-    }
+  void setDealer(int playerId) {
+    _viewModel.setDealer(playerId);
+    notifyListeners();
+  }
 
-    Future<void> startGame(BuildContext context) async {
-        await _viewModel.startNewGame(
-            // callback pour l'annonce humaine : affiche une popup et retourne l'entier
-            onHumanAnnounce: (player, maxValue, {forbiddenValue}) async {
-                return await numberInputDialog(context, maxValue, forbiddenValue: forbiddenValue);
-            },
+  void showAnnouncement(PlayerModel player, int announced) {
+    player.announce(announced);
+    notifyListeners();
+  }
 
-            // callback pour le choix de carte humain : affiche popup de choix de carte
-            onHumanPlay: (player, hand) async {
-                return await cardChoiceInputDialog(context, hand);
-            },
+  /// Starts a new game and sets up callbacks for various game events.
+  Future<void> startGame(BuildContext context) async {
+    await _viewModel.startNewGame(
+      // Callback for human voice announcement: displays a popup and returns the integer
+      onHumanAnnounce: (player, maxValue, {forbiddenValue}) async {
+        return await numberInputDialog(context, maxValue, forbiddenValue: forbiddenValue);
+      },
 
-            // callback appelé à chaque annonce (sert pour l'affichage en UI)
-            onAnnounceDisplayed: (player, announced) {
-                player.announce(announced); // met à jour le modèle
-                notifyListeners(); // rafraîchit la vue pour montrer l'annonce
-            },
+      // Callback for human card choice: displays a card choice popup
+      onHumanPlay: (player, hand) async {
+        return await cardChoiceInputDialog(context, hand);
+      },
 
-            // callback appelé à chaque carte jouée
-            onCardPlayed: (player, card) {
-                player.lastPlayedCard = card;
-                notifyListeners();
-            },
-            onTurnEnded: () {
-                notifyListeners();
-            },
-        );
-    }
-
-    void showAnnouncement(PlayerModel player, int announced) {
+      // Callback called at each announcement: displays the announcement
+      onAnnounceDisplayed: (player, announced) {
         player.announce(announced);
         notifyListeners();
-    }
+      },
+
+      // Callback called at each card played: displays the card played
+      onCardPlayed: (player, card) {
+        player.lastPlayedCard = card;
+        notifyListeners();
+      },
+
+      // Callback called at the end of each turn: displays the turn winner and scores
+      onTurnEnded: () {
+        notifyListeners();
+      },
+    );
+  }
 }
