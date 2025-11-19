@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/game_provider.dart';
+
 import 'game_page.dart';
-import '../widgets/player_count_selector.dart';
+import '../providers/game_provider.dart';
 import '../widgets/custom_button.dart';
+import '../widgets/player_count_selector.dart';
 
 class PlayerPage extends StatefulWidget {
   const PlayerPage({super.key});
@@ -26,11 +27,11 @@ class _PlayerPageState extends State<PlayerPage> {
   void _validateForm() {
     final provider = context.read<GameProvider>();
     if (_formKey.currentState!.validate()) {
-      // Add player
+      // Add main player
       provider.resetPlayers();
       provider.addPlayer(_nameController.text.trim(), false);
 
-      // Add others player (bots)
+      // Add bots players
       final missing = _selectedPlayerCount - provider.players.length;
       for (var i = 1; i <= missing; i++) {
         provider.addPlayer('Bot $i', true);
@@ -64,7 +65,7 @@ class _PlayerPageState extends State<PlayerPage> {
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondary),
         ),
         backgroundColor: Theme.of(context).colorScheme.secondary,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onSecondary),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30),
@@ -104,9 +105,9 @@ class _PlayerPageState extends State<PlayerPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 50),
 
-              // Pseudo choice
+              // Main player pseudo input
+              const SizedBox(height: 50),
               const Text(
                 'Votre pseudo :',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -152,8 +153,8 @@ class _PlayerPageState extends State<PlayerPage> {
                   return null; // OK
                 },
               ),
-              const SizedBox(height: 50),
 
+              const SizedBox(height: 50),
               CustomButton(
                 text: 'Commencer la partie !',
                 onPressed: _validateForm,

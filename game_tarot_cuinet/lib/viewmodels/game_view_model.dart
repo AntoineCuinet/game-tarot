@@ -51,6 +51,7 @@ class GameViewModel {
   }) async {
     PlayerModel dealer = _game.chooseRandomDealer();
 
+    // Main game loop
     while (true) {
       // Rounds begin with 5 cards dealt per hand, then the next round starts with n-1 cards
       for (int cards = 5; cards > 0; cards--) {

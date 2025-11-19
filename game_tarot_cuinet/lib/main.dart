@@ -18,6 +18,7 @@ void main() {
 
 class App extends StatelessWidget {
   const App({super.key});
+
   final ColorScheme lightColorScheme = const ColorScheme(
     brightness: Brightness.light,
     primary: Color(0xFF4B362D),
