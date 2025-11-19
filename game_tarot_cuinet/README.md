@@ -125,15 +125,9 @@ Special attention has been given to design and usability:
 - ...
 
 
-## TODO
 
-Revue de code (guillement, code propre, code mort, getteur et setter, attribut privés...)
-Commentaire et javaDoc en anglais
-
-dark mode plus beau
 Trier les mains par ordre croissant
 Refaire le front-end en plus beau + ajouter un vrai plateau
+dark mode plus beau
 
-changer le nombre de vie (nbre de carte au début)
-bruitage
 Choix de la difficulté des bots

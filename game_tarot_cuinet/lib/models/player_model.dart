@@ -18,9 +18,9 @@ class PlayerModel {
   int wonTricks = 0;
 
   PlayerModel({required int id, required String name, required Suit suit, this.isDealer = false, this.isBot = true}):
-        _id = id,
-        _name = name,
-        _suit = suit {_generateOrdinaryCards();}
+    _id = id,
+    _name = name,
+    _suit = suit {_generateOrdinaryCards();}
 
   int get id => _id;
   String get name => _name;
