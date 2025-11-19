@@ -16,6 +16,7 @@
     - [Number of Players](#number-of-players)
     - [Player Nickname](#player-nickname)
   - [Intelligent Bots](#intelligent-bots)
+  - [Choice of Bots difficulty](#choice-of-bots-difficulty)
   - [Sorted Hand](#sorted-hand)
   - [Dark mode](#dark-mode)
   - [UI/UX Design](#uiux-design)
@@ -105,6 +106,11 @@ Bots now announce the number of tricks based on the strength of their hand.
 They count the number of cards higher than 15 in their hand and announce that as their expected number of tricks
 
 This simple AI creates challenging opponents.
+
+## Choice of Bots difficulty
+
+The game allows you to choose at the beginning of the game whether you want to face easy or difficult bots.
+The easy bots play randomly, while the difficult ones do as mentioned above.
 
 ## Sorted Hand
 

@@ -43,6 +43,7 @@ class GameViewModel {
 
   /// Starts a new game and manages the game flow with provided callbacks for user interactions.
   Future<void> startNewGame({
+    required BotDifficulty difficulty,
     required Future<int?> Function(PlayerModel player, int maxValue, {int? forbiddenValue}) onHumanAnnounce,
     required Future<CardModel?> Function(PlayerModel player, List<CardModel> hand) onHumanPlay,
     required void Function(PlayerModel player, int announced) onAnnounceDisplayed,
@@ -58,7 +59,7 @@ class GameViewModel {
         deck = DeckModel();
         deck.shuffle();
 
-        final turn = TurnModel(players, deck, cards, dealer);
+        final turn = TurnModel(players, deck, cards, dealer, difficulty);
 
         await turn.playTurn(
           onHumanAnnounce: onHumanAnnounce,

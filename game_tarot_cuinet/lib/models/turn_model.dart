@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import 'bot_model.dart';
 import 'card_model.dart';
 import 'deck_model.dart';
 import 'player_model.dart';
@@ -11,9 +12,10 @@ class TurnModel {
   final DeckModel deck;
   final int cardsPerPlayer;
   final PlayerModel dealer;
+  final BotDifficulty difficulty;
   int _startingPlayerIndex = 0;
 
-  TurnModel(this.players, this.deck, this.cardsPerPlayer, this.dealer) {
+  TurnModel(this.players, this.deck, this.cardsPerPlayer, this.dealer, this.difficulty) {
     final dealerIndex = players.indexOf(dealer);
     _startingPlayerIndex = (dealerIndex + 1) % players.length;
   }
@@ -50,6 +52,7 @@ class TurnModel {
     // Announcement phase
     final trick = TrickModel(players);
     await trick.makeAnnouncements(
+      difficulty: difficulty,
       onHumanAnnounce: onHumanAnnounce,
       onAnnounceDisplayed: onAnnounceDisplayed,
       cardsInHand: cardsPerPlayer,

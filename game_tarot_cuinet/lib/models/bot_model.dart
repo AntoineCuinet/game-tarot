@@ -11,11 +11,11 @@ class BotModel extends PlayerModel {
     return hand.where((card) => card.value > 15).length; // Count high-value cards (> 15) as estimated tricks
   }
 
-  int computeAnnouncement({
-    required bool isDealer,
-    required int cardsInHand,
-    required int totalAnnouncements,
-  }) {
+  int computeAnnouncement({required bool isDealer, required int cardsInHand, required int totalAnnouncements, required BotDifficulty difficulty}) {
+    if (!isDealer && difficulty == BotDifficulty.easy) {
+      return _random.nextInt(cardsInHand + 1);
+    }
+
     final estimated = computeEstimatedTricks();
     final forbidden = cardsInHand - totalAnnouncements;
 
@@ -27,4 +27,9 @@ class BotModel extends PlayerModel {
 
     return estimated;
   }
+}
+
+enum BotDifficulty {
+  easy,
+  hard
 }

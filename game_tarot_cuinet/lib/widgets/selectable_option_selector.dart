@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 
-/// A widget that allows the selection of the number of players.
-/// [count] → Number of players represented by this selector.
-/// [selectedCount] → Currently selected number of players.
-/// [onSelected] → Callback function when this count is selected.
-class PlayerCountSelector extends StatelessWidget {
-  final int count;
-  final int selectedCount;
-  final ValueChanged<int> onSelected;
+/// Selection widget that can select any type of value.
+/// [value] → The value represented by this widget.
+/// [selectedValue] → The currently selected value.
+/// [label] → The text displayed.
+/// [onSelected] → Callback when this option is selected.
+class SelectableOption<T> extends StatelessWidget {
+  final T value;
+  final T selectedValue;
+  final String label;
+  final ValueChanged<T> onSelected;
 
-  const PlayerCountSelector({
+  const SelectableOption({
     super.key,
-    required this.count,
-    required this.selectedCount,
+    required this.value,
+    required this.selectedValue,
+    required this.label,
     required this.onSelected,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bool isSelected = selectedCount == count;
+    final bool isSelected = value == selectedValue;
 
     return GestureDetector(
-      onTap: () => onSelected(count),
+      onTap: () => onSelected(value),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 24),
@@ -32,7 +35,6 @@ class PlayerCountSelector extends StatelessWidget {
             width: 2,
           ),
         ),
-
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -42,7 +44,7 @@ class PlayerCountSelector extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              '$count joueurs',
+              label,
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,

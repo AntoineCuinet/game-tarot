@@ -15,6 +15,7 @@ class TrickModel {
   /// [cardsInHand] → Number of cards in each player's hand.
   /// [startingIndex] → Index of the player who starts the announcements.
   Future<void> makeAnnouncements({
+    required BotDifficulty difficulty,
     required Future<int?> Function(PlayerModel player, int maxValue, {int? forbiddenValue}) onHumanAnnounce,
     required void Function(PlayerModel player, int announced) onAnnounceDisplayed,
     required int cardsInHand,
@@ -33,7 +34,7 @@ class TrickModel {
       int announced;
 
       if (player.isBot && player is BotModel) { // Bots
-        announced = player.computeAnnouncement(isDealer: isDealer, cardsInHand: cardsInHand, totalAnnouncements: totalAnnouncements);
+        announced = player.computeAnnouncement(isDealer: isDealer, cardsInHand: cardsInHand, totalAnnouncements: totalAnnouncements, difficulty: difficulty);
       } else { // Humain
         final rawForbidden = isDealer ? cardsInHand - totalAnnouncements : null;
         final forbidden = (rawForbidden != null && rawForbidden >= 0) ? rawForbidden : null;

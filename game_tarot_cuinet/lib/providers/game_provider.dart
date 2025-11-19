@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models/bot_model.dart';
 import '../models/deck_model.dart';
 import '../models/player_model.dart';
 import '../models/trick_model.dart';
@@ -13,6 +14,7 @@ import '../widgets/number_input_dialog.dart';
 class GameProvider extends ChangeNotifier {
   final GameViewModel _viewModel = GameViewModel();
 
+  BotDifficulty botDifficulty = BotDifficulty.hard;
   TrickModel? _currentTrick;
   PlayerModel? _trickWinner;
 
@@ -42,8 +44,12 @@ class GameProvider extends ChangeNotifier {
   }
 
   /// Starts a new game and sets up callbacks for various game events.
-  Future<void> startGame(BuildContext context) async {
+  Future<void> startGame(BuildContext context, {required BotDifficulty difficulty}) async {
+    botDifficulty = difficulty;
+
     await _viewModel.startNewGame(
+      difficulty: botDifficulty,
+
       // Callback for human voice announcement: displays a popup and returns the integer
       onHumanAnnounce: (player, maxValue, {forbiddenValue}) async {
         return await numberInputDialog(context, maxValue, forbiddenValue: forbiddenValue);

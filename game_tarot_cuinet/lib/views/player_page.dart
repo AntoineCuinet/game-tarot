@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'game_page.dart';
+import '../models/bot_model.dart';
 import '../providers/game_provider.dart';
 import '../widgets/custom_button.dart';
-import '../widgets/player_count_selector.dart';
+import '../widgets/selectable_option_selector.dart';
 
 class PlayerPage extends StatefulWidget {
   const PlayerPage({super.key});
@@ -17,6 +18,7 @@ class _PlayerPageState extends State<PlayerPage> {
   final TextEditingController _nameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int _selectedPlayerCount = 3;
+  BotDifficulty _selectedDifficulty = BotDifficulty.easy;
 
   @override
   void dispose() {
@@ -39,7 +41,7 @@ class _PlayerPageState extends State<PlayerPage> {
       _nameController.clear();
 
       // Start the game
-      provider.startGame(context);
+      provider.startGame(context, difficulty: _selectedDifficulty);
 
       // Redirect to the game page
       Navigator.pushReplacement(
@@ -84,23 +86,21 @@ class _PlayerPageState extends State<PlayerPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  PlayerCountSelector(
-                    count: 3,
-                    selectedCount: _selectedPlayerCount,
+                  SelectableOption<int>(
+                    value: 3,
+                    selectedValue: _selectedPlayerCount,
+                    label: "3 joueurs",
                     onSelected: (value) {
-                      setState(() {
-                        _selectedPlayerCount = value;
-                      });
+                      setState(() => _selectedPlayerCount = value);
                     },
                   ),
                   const SizedBox(width: 20),
-                  PlayerCountSelector(
-                    count: 4,
-                    selectedCount: _selectedPlayerCount,
+                  SelectableOption<int>(
+                    value: 4,
+                    selectedValue: _selectedPlayerCount,
+                    label: "4 joueurs",
                     onSelected: (value) {
-                      setState(() {
-                        _selectedPlayerCount = value;
-                      });
+                      setState(() => _selectedPlayerCount = value);
                     },
                   ),
                 ],
@@ -154,6 +154,37 @@ class _PlayerPageState extends State<PlayerPage> {
                 },
               ),
 
+              // Choice of difficulty
+              const SizedBox(height: 50),
+              const Text(
+                'Difficulté des bots :',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SelectableOption<BotDifficulty>(
+                    value: BotDifficulty.easy,
+                    selectedValue: _selectedDifficulty,
+                    label: "Facile",
+                    onSelected: (value) {
+                      setState(() => _selectedDifficulty = value);
+                    },
+                  ),
+                  const SizedBox(width: 20),
+                  SelectableOption<BotDifficulty>(
+                    value: BotDifficulty.hard,
+                    selectedValue: _selectedDifficulty,
+                    label: "Difficile",
+                    onSelected: (value) {
+                      setState(() => _selectedDifficulty = value);
+                    },
+                  ),
+                ],
+              ),
+
+              // Validation button
               const SizedBox(height: 50),
               CustomButton(
                 text: 'Commencer la partie !',
