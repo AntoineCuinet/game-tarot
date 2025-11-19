@@ -19,13 +19,31 @@ class _GamePageState extends State<GamePage> {
     final players = provider.players;
 
     return Scaffold(
-      backgroundColor: Colors.green[800],
+      backgroundColor: Theme.of(context).brightness == Brightness.light ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Container(
-          color: Colors.green[800],
+          color: Theme.of(context).brightness == Brightness.light ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,
           child: Stack(
             alignment: Alignment.center,
             children: [
+              // Game board
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.10,
+                bottom: MediaQuery.of(context).size.height * 0.10,
+                left: MediaQuery.of(context).size.width * 0.10,
+                right: MediaQuery.of(context).size.width * 0.10,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      width: 3,
+                    ),
+                  ),
+                ),
+              ),
+
               // Bottom player (main)
               Positioned(
                 bottom: 5,

@@ -44,6 +44,7 @@ class TurnModel {
         }
       }
       player.receiveCards(cards);
+      player.sortHand();
     }
 
     // Announcement phase

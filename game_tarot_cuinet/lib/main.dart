@@ -21,9 +21,9 @@ class App extends StatelessWidget {
 
   final ColorScheme lightColorScheme = const ColorScheme(
     brightness: Brightness.light,
-    primary: Color(0xFF4B362D),
+    primary: Color(0xFF523B31),
     onPrimary: Colors.white,
-    secondary: Color(0xFF165D31),
+    secondary: Color(0xFF0F8D2D),
     onSecondary: Colors.white,
     error: Color(0xFFB00020),
     onError: Colors.white,
@@ -33,9 +33,9 @@ class App extends StatelessWidget {
 
   final ColorScheme darkColorScheme = const ColorScheme(
     brightness: Brightness.dark,
-    primary: Color(0xFF165D31),
+    primary: Color(0xFF523B31),
     onPrimary: Colors.white,
-    secondary: Color(0xFF4B362D),
+    secondary: Color(0xFF0F502D),
     onSecondary: Colors.white,
     error: Color(0xFFB00020),
     onError: Colors.white,
@@ -50,14 +50,8 @@ class App extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Projet De Développement Mobile',
-        theme: ThemeData(
-          colorScheme: lightColorScheme,
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: darkColorScheme,
-          useMaterial3: true,
-        ),
+        theme: ThemeData(colorScheme: lightColorScheme, useMaterial3: true),
+        darkTheme: ThemeData(colorScheme: darkColorScheme, useMaterial3: true),
         themeMode: ThemeMode.system,
         navigatorKey: navigatorKey,
         home: const HomePage(title: 'Jeu du tarot africain'),

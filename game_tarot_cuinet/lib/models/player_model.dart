@@ -48,6 +48,10 @@ class PlayerModel {
     _hand.addAll(cards);
   }
 
+  void sortHand() {
+    _hand.sort((a, b) => a.value.compareTo(b.value));
+  }
+
   CardModel playRandomCard() {
     final index = Random().nextInt(_hand.length);
     final card = _hand.removeAt(index);
