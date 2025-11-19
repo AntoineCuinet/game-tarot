@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../models/player_model.dart';
 
+/// Widget to build a player display with name, trick, hand and points remaining.
+/// [player] → The player to display.
+/// [rotationIndex] → Rotation index to rotate the player display (0: bottom, 1: left, 2: top, 3: right).
 Widget buildPlayer(PlayerModel player, {int rotationIndex = 0}) {
   final String backOfCard = 'assets/CaJ-TaroTv1-Dos.png';
 
@@ -33,7 +36,7 @@ Widget buildPlayer(PlayerModel player, {int rotationIndex = 0}) {
               color: Colors.white,
             ),
           ),
-        ]
+        ],
       ),
 
       RotatedBox(
@@ -50,7 +53,7 @@ Widget buildPlayer(PlayerModel player, {int rotationIndex = 0}) {
                     width: 60,
                     height: 100,
                   )
-              ]
+              ],
             ),
             const SizedBox(height: 20),
             Row(
@@ -72,11 +75,11 @@ Widget buildPlayer(PlayerModel player, {int rotationIndex = 0}) {
                   width: 60,
                   height: 100,
                 ),
-              ]
-            )
+              ],
+            ),
           ],
         ),
-      )
-    ]
+      ),
+    ],
   );
 }

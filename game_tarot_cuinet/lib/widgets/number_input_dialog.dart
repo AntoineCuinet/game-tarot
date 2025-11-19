@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+
 import '../main.dart';
 import 'custom_button.dart';
 
+/// Displays a dialog allowing the user to input a number within a specified range.
+/// [max] → Maximum allowable number (inclusive).
+/// [forbiddenValue] → (Optional) A number that cannot be chosen (used for the last player choice).
 Future<int?> numberInputDialog(BuildContext context, int max, {int? forbiddenValue}) async {
   final context = navigatorKey.currentContext;
   if (context == null) return null;
@@ -15,17 +19,14 @@ Future<int?> numberInputDialog(BuildContext context, int max, {int? forbiddenVal
       return StatefulBuilder(
         builder: (context, setState) {
           return AlertDialog(
-            backgroundColor: Theme
-                .of(context)
-                .colorScheme
-                .surface,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             title: const Text('Annonce ton nombre de plis'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (forbiddenValue != null)
                   Text(
-                    "(Tu ne peux pas annoncer : $forbiddenValue)",
+                    '(Tu ne peux pas annoncer : $forbiddenValue)',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.bold,
@@ -45,10 +46,7 @@ Future<int?> numberInputDialog(BuildContext context, int max, {int? forbiddenVal
                 if (errorMessage != null)
                   Text(
                     errorMessage!,
-                    style: TextStyle(color: Theme
-                        .of(context)
-                        .colorScheme
-                        .error),
+                    style: TextStyle(color: Theme.of(context).colorScheme.error),
                   ),
               ],
             ),
@@ -61,7 +59,7 @@ Future<int?> numberInputDialog(BuildContext context, int max, {int? forbiddenVal
                     final value = int.tryParse(text);
                     if (value == null || value < 0 || value > max || value == forbiddenValue) {
                       setState(() {
-                        errorMessage = "Valeur invalide.";
+                        errorMessage = 'Valeur invalide.';
                       });
                       return;
                     }

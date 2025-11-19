@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
 
+import '../main.dart';
 import 'custom_button.dart';
 
+/// Displays a dialog allowing the user to choose the value of the Excuse card (0 or 22 points).
 Future<int?> excuseValueInputDialog() async {
   final context = navigatorKey.currentContext;
   if (context == null) return null;
 
-  int selectedValue = 0; // valeur par défaut
+  int selectedValue = 0; // Default selection
 
   return await showDialog<int>(
     context: context,

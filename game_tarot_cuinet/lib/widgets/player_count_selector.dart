@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// A widget that allows the selection of the number of players.
+/// [count] → Number of players represented by this selector.
+/// [selectedCount] → Currently selected number of players.
+/// [onSelected] → Callback function when this count is selected.
 class PlayerCountSelector extends StatelessWidget {
   final int count;
   final int selectedCount;
@@ -24,9 +28,7 @@ class PlayerCountSelector extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected
-                ? Theme.of(context).colorScheme.primary
-                : Colors.grey.shade400,
+            color: isSelected ? Theme.of(context).colorScheme.primary : Colors.grey.shade400,
             width: 2,
           ),
         ),
@@ -36,9 +38,7 @@ class PlayerCountSelector extends StatelessWidget {
           children: [
             Icon(
               isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primary
-                  : Colors.grey.shade400,
+              color: isSelected ? Theme.of(context).colorScheme.primary : Colors.grey.shade400,
             ),
             const SizedBox(width: 8),
             Text(
@@ -46,9 +46,7 @@ class PlayerCountSelector extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                color: isSelected
-                    ? Theme.of(context).colorScheme.primary
-                    : Colors.grey.shade800,
+                color: isSelected ? Theme.of(context).colorScheme.primary : Colors.grey.shade800,
               ),
             ),
           ],

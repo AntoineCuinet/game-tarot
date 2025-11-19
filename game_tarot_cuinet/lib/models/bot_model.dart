@@ -1,13 +1,9 @@
 import 'player_model.dart';
-import 'card_model.dart';
 
 class BotModel extends PlayerModel {
-  BotModel({required int id, required String name, required suit, bool isDealer = false}) : super(
-    id: id,
-    name: name,
+  BotModel({required super.id, required super.name, required suit, super.isDealer}) : super(
     suit: suit,
     isBot: true,
-    isDealer: isDealer,
   );
 
   int computeEstimatedTricks() {

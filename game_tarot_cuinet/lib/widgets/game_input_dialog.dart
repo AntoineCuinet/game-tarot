@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+
 import '../main.dart';
 import 'custom_button.dart';
 
-/// Affiche une boîte de dialogue d'information personnalisable.
-/// [title] → Titre de la popup.
-/// [message] → Contenu principal du message.
-/// [buttonText] → (Optionnel) texte du bouton, par défaut "OK".
+/// Displays a customizable information dialog.
+/// [title] → Title of the popup.
+/// [message] → Main content of the message.
+/// [buttonText] → (Optional) text of the button, default is "OK".
+/// [onConfirm] → (Optional) Callback function when the button is pressed.
 Future<void> gameInputDialog({
   required String title,
   required String message,

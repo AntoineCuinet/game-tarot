@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// A customizable button widget with same global styling.
+/// [text] → Text to display on the button.
+/// [onPressed] → Callback function when the button is pressed.
+/// [backgroundColor] → (Optional) Background color of the button.
+/// [textColor] → (Optional) Text color of the button.
+/// [borderRadius] → (Optional) Border radius of the button, default is 12.
+/// [padding] → (Optional) Padding inside the button, default is symmetric vertical 15 and horizontal 24.
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;

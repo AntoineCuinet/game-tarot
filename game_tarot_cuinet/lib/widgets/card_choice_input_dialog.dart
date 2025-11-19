@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/card_model.dart';
-import '../main.dart';
 
+import '../main.dart';
+import '../models/card_model.dart';
+
+/// Displays a dialog allowing the user to choose a card from their hand.
+/// [hand] → List of cards in the player's hand.
 Future<CardModel?> cardChoiceInputDialog(BuildContext context, List<CardModel> hand) async {
   final context = navigatorKey.currentContext;
   if (context == null) return null;
