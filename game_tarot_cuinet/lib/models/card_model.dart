@@ -5,7 +5,7 @@ class CardModel {
   final String assetPath; // path to picture
   bool isVisible;
 
-  CardModel({required this.value, required this.name, required this.suit, required this.assetPath,this.isVisible = true});
+  CardModel({required this.value, required this.name, required this.suit, required this.assetPath, this.isVisible = true});
 }
 
 enum Suit {

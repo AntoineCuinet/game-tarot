@@ -8,12 +8,9 @@ class DeckModel {
   }
 
   List<CardModel> get deck => List.unmodifiable(_deck);
+  List<String> get allCardNames => _deck.map((card) => card.name).toList();
 
   void shuffle() => _deck.shuffle();
-
-  List<String> getAllCardNames() {
-    return _deck.map((card) => card.name).toList();
-  }
 
   List<CardModel> drawCards(int count) {
     final drawn = _deck.sublist(0, count);

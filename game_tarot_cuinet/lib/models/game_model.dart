@@ -1,15 +1,13 @@
 import 'dart:math';
+
 import 'player_model.dart';
 
 class GameModel {
   final List<PlayerModel> _players;
-
   GameModel({List<PlayerModel>? players}) : _players = players ?? [];
 
   List<PlayerModel> get players => List.unmodifiable(_players);
-
   int get playerCount => _players.length;
-
   PlayerModel get dealer => _players.firstWhere((p) => p.isDealer, orElse: () => throw Exception('Aucun dealer défini'));
 
   void addPlayer(PlayerModel player) {

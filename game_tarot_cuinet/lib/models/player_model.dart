@@ -26,7 +26,6 @@ class PlayerModel {
   String get name => _name;
   Suit get suit => _suit;
   int get pointsRemaining => _ordinaryCards.length;
-
   UnmodifiableListView<CardModel> get ordinaryCards => UnmodifiableListView(_ordinaryCards);
   List<CardModel> get hand => List.unmodifiable(_hand);
 
@@ -57,7 +56,7 @@ class PlayerModel {
   }
 
   CardModel playCard(CardModel card) {
-    if (!_hand.contains(card)) throw Exception("Carte non trouvée !");
+    if (!_hand.contains(card)) throw Exception('Carte non trouvée !');
     lastPlayedCard = card;
     _hand.remove(card);
     return card;
@@ -74,9 +73,7 @@ class PlayerModel {
   }
 
   void _generateOrdinaryCards() {
-    const names = [
-      'Roi', 'Dame', 'Cavalier', 'Valet', '10', '9', '8', '7', '6', '5', '4', '3', '2', 'As'
-    ];
+    const names = ['Roi', 'Dame', 'Cavalier', 'Valet', '10', '9', '8', '7', '6', '5', '4', '3', '2', 'As'];
 
     final values = {
       'Roi': 14,
