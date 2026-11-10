@@ -1,5 +1,6 @@
-# Flutter/Dart/Pub related
-**/doc/api/
+# --------------------------------------------------
+# Flutter / Dart / Pub
+# --------------------------------------------------
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -8,45 +9,54 @@
 .pub/
 build/
 coverage/
-android/app/debug
-android/app/profile
-android/app/release
+**/doc/api/
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
+# Recommandation officielle Flutter pour les applications :
+# Conserver pubspec.lock pour garantir des builds reproductibles.
+# Si vous souhaitez l'ignorer, décommentez la ligne suivante :
+# pubspec.lock
 
-# Visual Studio Code related
-.vscode/
-.history/
+# --------------------------------------------------
+# Fichiers sensibles, clés & secrets (NE JAMAIS PUSH)
+# --------------------------------------------------
+*.env
+*.env.*
+*.keystore
+*.jks
+*.p12
+*.key
+*.pem
+*.crt
+key.properties
+google-services.json
+GoogleService-Info.plist
+firebase_app_id_file.json
 
-# Android related
-local.properties
-.gradle/
-**/gradle-wrapper.jar
-**/gradle-wrapper.properties
-**/gradlew
-**/gradlew.bat
-**/gradle/
+# --------------------------------------------------
+# Android
+# --------------------------------------------------
+android/local.properties
+android/.gradle/
 **/captures/
 **/.cxx/
 **/output.json
+android/app/debug/
+android/app/profile/
+android/app/release/
 *.apk
+*.aab
 *.aar
 *.ap_
 *.dex
 *.class
-*.log
 
-# iOS/macOS related
+# --------------------------------------------------
+# iOS / macOS
+# --------------------------------------------------
 **/Pods/
-**/Podfile.lock
-**/pubspec.lock
 **/DerivedData/
 *.xcuserstate
-*.xcworkspace
+*.xcworkspace/
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
@@ -55,39 +65,49 @@ local.properties
 *.ipa
 *.dSYM.zip
 *.dSYM
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/Flutter/ephemeral/
+macos/Flutter/ephemeral/
 
-# Windows related
+# --------------------------------------------------
+# Linux / Windows / Web
+# --------------------------------------------------
+linux/flutter/ephemeral/
+linux/build/
 windows/flutter/ephemeral/
 windows/runner/Debug/
 windows/runner/Release/
-
-# Linux related
-linux/flutter/ephemeral/
-linux/build/
-
-# Web related
 lib/generated_plugin_registrant.dart
 
-# Others
+# --------------------------------------------------
+# IDEs & Éditeurs (spécifiques à la machine locale)
+# --------------------------------------------------
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.history/
+
+# --------------------------------------------------
+# Système d'exploitation (macOS, Windows, Linux)
+# --------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# --------------------------------------------------
+# Fichiers temporaires & logs
+# --------------------------------------------------
+*.log
 *.tmp
 *.temp
 *.swp
-*.lock
 *.bak
 *.old
 *.orig
-
-# Firebase/Secrets (be careful!)
-*.keystore
-*.jks
-*.p12
-*.key
-*.pem
-*.crt
-google-services.json
-GoogleService-Info.plist
-firebase_app_id_file.json
-.env
-
-# IOS
-.DS_Store
